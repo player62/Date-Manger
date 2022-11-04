@@ -31,7 +31,7 @@
    <double>-1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(223, 95, 159, 200), stop:0.513812 rgba(224, 212, 107, 200), stop:1 rgba(103, 188, 228, 200))</string>
+   <string notr="true">background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(223, 95, 159, 200), stop:0.513812 rgba(224, 212, 107, 200), stop:1 rgba(103, 188, 228, 200));</string>
   </property>
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
