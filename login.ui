@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+
  <class>dialog</class>
+
  <widget class="QDialog" name="dialog">
   <property name="geometry">
    <rect>
@@ -10,12 +12,15 @@
     <height>1240</height>
    </rect>
   </property>
+
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+
   <property name="styleSheet">
    <string notr="true">background-color: rgb(54, 54, 54);</string>
   </property>
+
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -25,19 +30,24 @@
      <height>61</height>
     </rect>
    </property>
+
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
+
    <property name="styleSheet">
     <string notr="true">color:rgb(255, 255, 255); font-size:20pt;</string>
    </property>
+
    <property name="text">
     <string>Login</string>
    </property>
+
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
+
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -47,13 +57,16 @@
      <height>41</height>
     </rect>
    </property>
+
    <property name="styleSheet">
     <string notr="true">font-size:15pt; color:rgb(70, 120, 99);font-weight:600;</string>
    </property>
+   
    <property name="text">
     <string>ID</string>
    </property>
   </widget>
+
   <widget class="QLineEdit" name="ID">
    <property name="geometry">
     <rect>
@@ -63,13 +76,16 @@
      <height>41</height>
     </rect>
    </property>
+
    <property name="styleSheet">
     <string notr="true">font-size:14pt; color:rgb(255, 247, 242)</string>
    </property>
+
    <property name="text">
     <string/>
    </property>
   </widget>
+
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
@@ -79,13 +95,16 @@
      <height>41</height>
     </rect>
    </property>
+
    <property name="styleSheet">
     <string notr="true">font-size:15pt; color:rgb(70, 120, 99);font-weight:600;</string>
    </property>
+   
    <property name="text">
     <string>PW</string>
    </property>
   </widget>
+
   <widget class="QLineEdit" name="PW">
    <property name="geometry">
     <rect>
@@ -95,13 +114,16 @@
      <height>41</height>
     </rect>
    </property>
+
    <property name="styleSheet">
     <string notr="true">font-size:14pt; color:rgb(255, 247, 242)</string>
    </property>
+   
    <property name="text">
     <string/>
    </property>
   </widget>
+
   <widget class="QPushButton" name="Login_button">
    <property name="geometry">
     <rect>
@@ -111,9 +133,11 @@
      <height>61</height>
     </rect>
    </property>
+
    <property name="styleSheet">
     <string notr="true">color:rgb(255, 255, 255);background-color: rgb(167, 168, 167);font-size:14pt;</string>
    </property>
+   
    <property name="text">
     <string>Login</string>
    </property>
