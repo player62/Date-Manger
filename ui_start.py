@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\uri42\OneDrive - 성균관대학교\Python\DM\start.ui'
+# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\start.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
