@@ -1,2 +1,2 @@
 # Date-Manger
-For ComEDU Learning Fair 2022
+For ComEdu Learning Fair 2022

@@ -1,11 +1,12 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5.QtGui import QPixmap
 from PyQt5.uic import loadUi
 dic_login = {}
 login_cnt = 0
-
+Lc1 = ''
+Lc2 = ''
+Lc3 = ''
 # 시작화면 구성
 
 
@@ -30,6 +31,10 @@ class Locate_choose(QDialog):
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
+        global Lc1
+        global Lc2
+        global Lc3
+
         Lc1 = self.locate_1.text()  # locate에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
         Lc2 = self.locate_2.text()
         Lc3 = self.locate_3.text()
@@ -66,7 +71,7 @@ class Login(QDialog):
                     print("Login Success ID: ", ID)
                     self.loginwindowtransfer()
                 else:
-                    print("Wrong PW")#로그인 실패시 그화면 그대로
+                    print("Wrong PW")  # 로그인 실패시 그화면 그대로
 
             else:  # 기존에 없는 id일
                 ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
@@ -75,19 +80,27 @@ class Login(QDialog):
                 print("Login Success ID: ", ID)
                 self.loginwindowtransfer()
 
-    def loginwindowtransfer(self): #로그인 성공시 화면 전환을 함수로 따로 묶음
-        start3 = Login_test()
+    def loginwindowtransfer(self):  # 로그인 성공시 화면 전환을 함수로 따로 묶음
+        start3 = Main()
         widget.addWidget(start3)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 # 화면 확인
 
 
-class Login_test(QDialog):
+class Main(QDialog):
     def __init__(self):
-        super(Login_test, self).__init__()
-        loadUi("login_test.ui", self)
-        self.return_button.clicked.connect(self.returnfunction)
+        super(Main, self).__init__()
+        loadUi("mainwindow.ui", self)
+        # 지역 선택
+        global Lc1
+        global Lc2
+        global Lc3
+        listlocate = [Lc1, Lc2, Lc3]
+        for lc in listlocate:
+            self.locateselect_combobox.addItem(lc)  # 콤보박스에 장소 추가
+
+        self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
     def returnfunction(self):
         start4 = Login()
