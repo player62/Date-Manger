@@ -14,20 +14,62 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(960, 1240)
-        Dialog.setStyleSheet("background-color : rgb(54,54,54);")
-        self.DM_label = QtWidgets.QLabel(Dialog)
-        self.DM_label.setGeometry(QtCore.QRect(470, 30, 281, 181))
-        self.DM_label.setStyleSheet("font-size : 30pt; color : rgb(255, 255, 255)")
-        self.DM_label.setObjectName("DM_label")
-        self.DM_label_2 = QtWidgets.QLabel(Dialog)
-        self.DM_label_2.setGeometry(QtCore.QRect(460, 170, 151, 16))
-        self.DM_label_2.setStyleSheet("color:rgb(255, 255, 255)")
-        self.DM_label_2.setObjectName("DM_label_2")
-        self.start_button = QtWidgets.QPushButton(Dialog)
-        self.start_button.setGeometry(QtCore.QRect(450, 510, 111, 71))
-        self.start_button.setStyleSheet("background-color : rgb(255, 247, 246);")
+        Dialog.resize(900, 900)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
+        Dialog.setStyleSheet("background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(223, 95, 159, 200), stop:0.513812 rgba(224, 212, 107, 200), stop:1 rgba(103, 188, 228, 200))")
+        self.widget = QtWidgets.QWidget(Dialog)
+        self.widget.setGeometry(QtCore.QRect(250, 300, 400, 300))
+        self.widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius : 10px;")
+        self.widget.setObjectName("widget")
+        self.start_button = QtWidgets.QPushButton(self.widget)
+        self.start_button.setGeometry(QtCore.QRect(50, 200, 300, 40))
+        self.start_button.setStyleSheet("color : rgb(255, 255, 255);\n"
+"background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(223, 185, 204, 255), stop:0.510989 rgba(224, 219, 177, 255), stop:1 rgba(148, 202, 228, 255));\n"
+"\n"
+"font-family : \'Dosis\';\n"
+"font-weight : bold;\n"
+"font-size : 14pt;\n"
+"\n"
+"border-radius : 16px;")
         self.start_button.setObjectName("start_button")
+        self.DM_label = QtWidgets.QLabel(self.widget)
+        self.DM_label.setGeometry(QtCore.QRect(100, 100, 200, 71))
+        font = QtGui.QFont()
+        font.setFamily("Colonna MT")
+        font.setPointSize(40)
+        font.setBold(True)
+        font.setWeight(75)
+        self.DM_label.setFont(font)
+        self.DM_label.setStyleSheet("color : rgb(0, 0, 0);\n"
+"background-color : rgba(255, 255, 255, 0);\n"
+"\n"
+"font-family : \'Colonna MT\';\n"
+"font-weight : bold;\n"
+"font-size : 40pt; ")
+        self.DM_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.DM_label.setObjectName("DM_label")
+        self.DM_label_2 = QtWidgets.QLabel(self.widget)
+        self.DM_label_2.setGeometry(QtCore.QRect(100, 60, 200, 51))
+        font = QtGui.QFont()
+        font.setFamily("Colonna MT")
+        font.setPointSize(40)
+        font.setBold(True)
+        font.setWeight(75)
+        self.DM_label_2.setFont(font)
+        self.DM_label_2.setStyleSheet("color : rgb(0, 0, 0);\n"
+"background-color : rgba(255, 255, 255, 0);\n"
+"\n"
+"font-family : \'Colonna MT\';\n"
+"font-weight : bold;\n"
+"font-size : 40pt; ")
+        self.DM_label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.DM_label_2.setObjectName("DM_label_2")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -35,6 +77,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.DM_label.setText(_translate("Dialog", "DM"))
-        self.DM_label_2.setText(_translate("Dialog", "Date Manager"))
-        self.start_button.setText(_translate("Dialog", "START"))
+        self.start_button.setText(_translate("Dialog", "Ready To Date?"))
+        self.DM_label.setText(_translate("Dialog", "<html><head/><body><p>Manager</p></body></html>"))
+        self.DM_label_2.setText(_translate("Dialog", "<html><head/><body><p>Date</p></body></html>"))
+import resource_rc
