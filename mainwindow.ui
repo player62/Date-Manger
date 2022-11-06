@@ -84,7 +84,7 @@ border-radius : 4px;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="time_table">
     <property name="geometry">
      <rect>
       <x>25</x>
@@ -95,6 +95,10 @@ border-radius : 4px;</string>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">selection-color: rgba(64, 255, 240, 150);
+selection-background-color: rgba(64, 255, 240, 150);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>

@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import*
 from PyQt5.uic import loadUi
 dic_login = {}
@@ -9,6 +9,8 @@ Lc1 = ''
 Lc2 = ''
 Lc3 = ''
 timetable = []
+login_timetable = []
+location_list = []
 
 # 시작화면 구성
 
@@ -34,13 +36,10 @@ class Locate_choose(QDialog):
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
-        global Lc1
-        global Lc2
-        global Lc3
 
-        Lc1 = self.locate_1.text()  # locate에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
-        Lc2 = self.locate_2.text()
-        Lc3 = self.locate_3.text()
+        location_list.append(self.locate_1.text())  # locate에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
+        location_list.append(self.locate_2.text())
+        location_list.append(self.locate_3.text())
         start2 = Login()
         widget.addWidget(start2)
         widget.setCurrentIndex(widget.currentIndex()+1)
@@ -96,28 +95,31 @@ class Main(QDialog):
         super(Main, self).__init__()
         loadUi("mainwindow.ui", self)
         # 지역 선택
-        global Lc1
-        global Lc2
-        global Lc3
-        listlocate = [Lc1, Lc2, Lc3]
-        for lc in listlocate:
+        for lc in location_list:
             self.locateselect_combobox.addItem(lc)  # 콤보박스에 장소 추가
+            
+        if len(login_timetable) != 0:
+            for i in range(0, len(login_timetable)):
+                if(login_timetable[i][0] == login_cnt):
+                    print(login_timetable[i])
 
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
         self.makescedule_button.clicked.connect(self.timeselect)
 
     def timeselect(self):
-        def timeselect(self):
-            global login_cnt
+        global login_cnt
       
    
         print(login_cnt)
-        mod = sys.modules[__name__]
+        
+        
+
         for i in self.time_table.selectedIndexes():
-            setattr(mod,'time_table{}'.format(login_cnt),(i.row()+1,i.column()+1))
-      
-            print(getattr(mod,  'time_table{}'.format(login_cnt)))
+            print("%d %d"%(i.row()+1,i.column()+1))
+            login_timetable.append([login_cnt, i.row()+1,i.column()+1])
+            
+        print(login_timetable)
 
     def returnfunction(self):
         start4 = Login()
