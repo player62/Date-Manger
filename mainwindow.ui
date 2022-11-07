@@ -321,6 +321,11 @@ selection-background-color: rgba(64, 255, 240, 150);</string>
       <string>S</string>
      </property>
     </column>
+    <item row="5" column="5">
+     <property name="text">
+      <string/>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="where_label">
     <property name="geometry">
