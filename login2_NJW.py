@@ -73,7 +73,7 @@ member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("start.ui", self)
+        loadUi("start_test.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
@@ -408,8 +408,8 @@ mainwindow = Start()
 
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
-widget.setFixedWidth(900)
-widget.setFixedHeight(1000)
+widget.setMaximumWidth(900)
+widget.setMaximumHeight(1000)
 widget.show()
 app.exec_()
 # ====================================================================================================
