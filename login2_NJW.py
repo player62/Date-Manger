@@ -1,21 +1,33 @@
+# Import Modules
+# ====================================================================================================
 import sys
+from os import environ
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 import pandas as pd
 import openpyxl
 import numpy as np
+# ====================================================================================================
 
-dic_login = {}
-login_cnt = 0
+# Function for Fixing Font Sizes by Screen Resolution
+# ====================================================================================================
+def suppress_qt_warnings():
+    environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    #environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    environ["QT_SCALE_FACTOR"] = "1"
+# ====================================================================================================
+
+# Variables Declaration
+# ====================================================================================================
+loginDict = {}
+loginCount = 0
 login = []
-
-Lc1 = ''
-Lc2 = ''
-Lc3 = ''
+locationList = []
 
 member = 0
-
 
 member_schedule_1_1 = []
 member_schedule_2_1 = []
@@ -33,7 +45,6 @@ reset_5 = np.full(27, 0)
 reset_6 = np.full(27, 0)
 reset_7 = np.full(27, 0)
 reset_8 = np.full(27, 0)  # 이걸로 재 초기화
-
 
 SUN = 0
 MON = 1
@@ -55,11 +66,10 @@ member_schedule_5 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+# ====================================================================================================
 
-
-# 시작화면 구성
-
-
+# Start Screen Configuration
+# ====================================================================================================
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
@@ -73,10 +83,10 @@ class Start(QDialog):
         start = Locate_choose()
         widget.addWidget(start)
         widget.setCurrentIndex(widget.currentIndex()+1)
+# ====================================================================================================
 
-# 장소 선택화면 구성
-
-
+# Location Choosing Screen Configuration
+# ====================================================================================================
 class Locate_choose(QDialog):
     def __init__(self):
         super(Locate_choose, self).__init__()
@@ -84,20 +94,18 @@ class Locate_choose(QDialog):
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
-        global Lc1
-        global Lc2
-        global Lc3
-
-        Lc1 = self.locate_1.text()  # locate에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
-        Lc2 = self.locate_2.text()
-        Lc3 = self.locate_3.text()
+        
+        locationList.append(self.locate_1.text())
+        locationList.append(self.locate_2.text())
+        locationList.append(self.locate_3.text())
+        
         start2 = Login()
         widget.addWidget(start2)
         widget.setCurrentIndex(widget.currentIndex()+1)
+# ====================================================================================================
 
-# 로그인 화면 구현
-
-
+# Login Screen Configuration
+# ====================================================================================================
 class Login(QDialog):
 
     def __init__(self):
@@ -107,22 +115,22 @@ class Login(QDialog):
         self.PW.setEchoMode(QtWidgets.QLineEdit.Password)
 
     def loginfunction(self):
-        global login_cnt
-        if (login_cnt == 0):  # 최초 로그인
+        global loginCount
+        if (loginCount == 0):  # 최초 로그인
             ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
             PW = self.PW.text()
-            dic_login[ID] = PW
+            loginDict[ID] = PW
             login.append(ID)
             print(login)
             print("Login Success ID: ", ID)
-            login_cnt += 1
+            loginCount += 1
             self.loginwindowtransfer()
 
         else:  # 다음 로그인
             ID = self.ID.text()  # 다시 id 받음
-            if (ID in dic_login.keys()):  # 기존에 있는 id인지 확인
+            if (ID in loginDict.keys()):  # 기존에 있는 id인지 확인
                 PW2 = self.PW.text()  # 비밀번호 기존것과 확인
-                if (PW2 == dic_login[ID]):
+                if (PW2 == loginDict[ID]):
                     print("Login Success ID: ", ID)
                     login.append(ID)
                     print(login)
@@ -133,9 +141,9 @@ class Login(QDialog):
             else:  # 기존에 없는 id일
                 ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
                 PW = self.PW.text()
-                dic_login[ID] = PW
+                loginDict[ID] = PW
                 login.append(ID)
-                login_cnt += 1
+                loginCount += 1
                 print(login)
                 print("Login Success ID: ", ID)
                 self.loginwindowtransfer()
@@ -144,19 +152,17 @@ class Login(QDialog):
         start3 = Main()
         widget.addWidget(start3)
         widget.setCurrentIndex(widget.currentIndex()+1)
+# ====================================================================================================
 
-
-# 메인 화면
+# Main Screen Configuration
+# ====================================================================================================
 class Main(QDialog):
     def __init__(self):
         super(Main, self).__init__()
         loadUi("mainwindow.ui", self)
         # 지역 선택
-        global Lc1
-        global Lc2
-        global Lc3
-        listlocate = [Lc1, Lc2, Lc3]
-        for lc in listlocate:
+        
+        for lc in locationList:
             self.locateselect_combobox.addItem(lc)  # 콤보박스에 장소 추가
 
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
@@ -164,9 +170,9 @@ class Main(QDialog):
         self.makescedule_button.clicked.connect(self.timeselect)
 
     def timeselect(self):  # 개인별 시간 선택
-        global login_cnt
+        global loginCount
 
-        print(login_cnt)
+        print(loginCount)
         global member
 
         global member_schedule_1
@@ -185,7 +191,7 @@ class Main(QDialog):
 
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
-        if (login_cnt == 1):
+        if (loginCount == 1):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
@@ -206,7 +212,7 @@ class Main(QDialog):
             member_schedule_1 = pd.DataFrame(member_schedule_1)
             member_schedule_1_1 = np.array(member_schedule_1)
 
-        elif login_cnt == 2:
+        elif loginCount == 2:
             self.reset_2()
 
             for i in self.time_table.selectedIndexes():
@@ -230,7 +236,7 @@ class Main(QDialog):
             
             self.result_print()
 
-        elif login_cnt == 3:
+        elif loginCount == 3:
 
             self.reset_3()
 
@@ -256,7 +262,7 @@ class Main(QDialog):
             #print(total_schedule)
             self.result_print()
 
-        elif login_cnt == 4:
+        elif loginCount == 4:
 
             self.reset_4()
 
@@ -280,7 +286,7 @@ class Main(QDialog):
             member_schedule_4_1 = np.array(member_schedule_4)
             self.result_print()
 
-        elif login_cnt == 5:
+        elif loginCount == 5:
 
             self.reset_5()
 
@@ -304,7 +310,7 @@ class Main(QDialog):
             member_schedule_5_1 = np.array(member_schedule_5)
             self.result_print()
 
-        elif login_cnt == 6:
+        elif loginCount == 6:
 
             self.reset_6()
 
@@ -359,7 +365,6 @@ class Main(QDialog):
             member_schedule_6[i][0:] = reset_8
 
     def result_print(self):
-
         global total_schedule
 
         global member_schedule_1_1
@@ -392,9 +397,13 @@ class Main(QDialog):
         start4 = Login()
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex()+1)
+# ====================================================================================================
 
-
+# Application Run
+# ====================================================================================================
+suppress_qt_warnings()
 app = QApplication(sys.argv)
+app.setAttribute(Qt.AA_EnableHighDpiScaling)
 mainwindow = Start()
 
 widget = QtWidgets.QStackedWidget()
@@ -403,3 +412,4 @@ widget.setFixedWidth(900)
 widget.setFixedHeight(1000)
 widget.show()
 app.exec_()
+# ====================================================================================================

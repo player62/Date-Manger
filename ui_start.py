@@ -23,6 +23,11 @@ class Ui_Dialog(object):
         Dialog.setStyleSheet("background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(223, 95, 159, 200), stop:0.513812 rgba(224, 212, 107, 200), stop:1 rgba(103, 188, 228, 200))")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setGeometry(QtCore.QRect(250, 300, 400, 300))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy)
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "\n"
 "border-radius : 10px;")
@@ -38,38 +43,6 @@ class Ui_Dialog(object):
 "\n"
 "border-radius : 16px;")
         self.start_button.setObjectName("start_button")
-        self.DM_label = QtWidgets.QLabel(self.widget)
-        self.DM_label.setGeometry(QtCore.QRect(100, 100, 200, 71))
-        font = QtGui.QFont()
-        font.setFamily("Colonna MT")
-        font.setPointSize(40)
-        font.setBold(True)
-        font.setWeight(75)
-        self.DM_label.setFont(font)
-        self.DM_label.setStyleSheet("color : rgb(0, 0, 0);\n"
-"background-color : rgba(255, 255, 255, 0);\n"
-"\n"
-"font-family : \'Colonna MT\';\n"
-"font-weight : bold;\n"
-"font-size : 40pt; ")
-        self.DM_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.DM_label.setObjectName("DM_label")
-        self.DM_label_2 = QtWidgets.QLabel(self.widget)
-        self.DM_label_2.setGeometry(QtCore.QRect(100, 60, 200, 51))
-        font = QtGui.QFont()
-        font.setFamily("Colonna MT")
-        font.setPointSize(40)
-        font.setBold(True)
-        font.setWeight(75)
-        self.DM_label_2.setFont(font)
-        self.DM_label_2.setStyleSheet("color : rgb(0, 0, 0);\n"
-"background-color : rgba(255, 255, 255, 0);\n"
-"\n"
-"font-family : \'Colonna MT\';\n"
-"font-weight : bold;\n"
-"font-size : 40pt; ")
-        self.DM_label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.DM_label_2.setObjectName("DM_label_2")
         self.member_num = QtWidgets.QLineEdit(self.widget)
         self.member_num.setGeometry(QtCore.QRect(190, 200, 113, 20))
         self.member_num.setStyleSheet("background-color: rgba(0, 0, 0, 54);\n"
@@ -84,6 +57,41 @@ class Ui_Dialog(object):
 "font-size : 12pt;")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
+        self.widget_2 = QtWidgets.QWidget(self.widget)
+        self.widget_2.setGeometry(QtCore.QRect(80, 40, 240, 120))
+        self.widget_2.setObjectName("widget_2")
+        self.DM_label = QtWidgets.QLabel(self.widget_2)
+        self.DM_label.setGeometry(QtCore.QRect(20, 40, 200, 71))
+        font = QtGui.QFont()
+        font.setFamily("Colonna MT")
+        font.setPointSize(40)
+        font.setBold(True)
+        font.setWeight(75)
+        self.DM_label.setFont(font)
+        self.DM_label.setStyleSheet("color : rgb(0, 0, 0);\n"
+"background-color : rgba(255, 255, 255, 0);\n"
+"\n"
+"font-family : \'Colonna MT\';\n"
+"font-weight : bold;\n"
+"font-size : 40pt; ")
+        self.DM_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.DM_label.setObjectName("DM_label")
+        self.DM_label_2 = QtWidgets.QLabel(self.widget_2)
+        self.DM_label_2.setGeometry(QtCore.QRect(60, 0, 120, 51))
+        font = QtGui.QFont()
+        font.setFamily("Colonna MT")
+        font.setPointSize(40)
+        font.setBold(True)
+        font.setWeight(75)
+        self.DM_label_2.setFont(font)
+        self.DM_label_2.setStyleSheet("color : rgb(0, 0, 0);\n"
+"background-color : rgba(255, 255, 255, 0);\n"
+"\n"
+"font-family : \'Colonna MT\';\n"
+"font-weight : bold;\n"
+"font-size : 40pt; ")
+        self.DM_label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.DM_label_2.setObjectName("DM_label_2")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -92,6 +100,6 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.start_button.setText(_translate("Dialog", "Ready To Date?"))
+        self.label.setText(_translate("Dialog", "How many?"))
         self.DM_label.setText(_translate("Dialog", "<html><head/><body><p>Manager</p></body></html>"))
         self.DM_label_2.setText(_translate("Dialog", "<html><head/><body><p>Date</p></body></html>"))
-        self.label.setText(_translate("Dialog", "How many?"))
