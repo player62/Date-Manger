@@ -28,7 +28,7 @@ class Ui_Dialog(object):
 "border-radius : 10px;")
         self.widget.setObjectName("widget")
         self.start_button = QtWidgets.QPushButton(self.widget)
-        self.start_button.setGeometry(QtCore.QRect(50, 200, 300, 40))
+        self.start_button.setGeometry(QtCore.QRect(50, 240, 300, 40))
         self.start_button.setStyleSheet("color : rgb(255, 255, 255);\n"
 "background-color : qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(223, 185, 204, 255), stop:0.510989 rgba(224, 219, 177, 255), stop:1 rgba(148, 202, 228, 255));\n"
 "\n"
@@ -70,6 +70,20 @@ class Ui_Dialog(object):
 "font-size : 40pt; ")
         self.DM_label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.DM_label_2.setObjectName("DM_label_2")
+        self.member_num = QtWidgets.QLineEdit(self.widget)
+        self.member_num.setGeometry(QtCore.QRect(190, 200, 113, 20))
+        self.member_num.setStyleSheet("background-color: rgba(0, 0, 0, 54);\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius : 8px;")
+        self.member_num.setText("")
+        self.member_num.setObjectName("member_num")
+        self.label = QtWidgets.QLabel(self.widget)
+        self.label.setGeometry(QtCore.QRect(70, 200, 81, 16))
+        self.label.setStyleSheet("font-family : \'Dosis\';\n"
+"font-size : 12pt;")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -80,4 +94,4 @@ class Ui_Dialog(object):
         self.start_button.setText(_translate("Dialog", "Ready To Date?"))
         self.DM_label.setText(_translate("Dialog", "<html><head/><body><p>Manager</p></body></html>"))
         self.DM_label_2.setText(_translate("Dialog", "<html><head/><body><p>Date</p></body></html>"))
-import resource_rc
+        self.label.setText(_translate("Dialog", "How many?"))
