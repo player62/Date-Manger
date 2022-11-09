@@ -9,6 +9,7 @@ from PyQt5.uic import loadUi
 import pandas as pd
 import openpyxl
 import numpy as np
+import copy
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -58,42 +59,24 @@ THU = 4
 FRI = 5
 SAT = 6
 ID = ''
-PW =''
-member_schedule_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+PW = ''
 
-member_schedule_2 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+calendar = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+            WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 
-member_schedule_3 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_1 = copy.deepcopy(calendar)
+member_schedule_2 = copy.deepcopy(calendar)
+member_schedule_3 = copy.deepcopy(calendar)
+member_schedule_4 = copy.deepcopy(calendar)
+member_schedule_5 = copy.deepcopy(calendar)
+member_schedule_6 = copy.deepcopy(calendar)
 
-member_schedule_4 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_5 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                     WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_1_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_2_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_3_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_4_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-member_schedule_5_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-                       
-member_schedule_6_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_1_1 = copy.deepcopy(calendar)
+member_schedule_2_1 = copy.deepcopy(calendar)
+member_schedule_3_1 = copy.deepcopy(calendar)
+member_schedule_4_1 = copy.deepcopy(calendar)
+member_schedule_5_1 = copy.deepcopy(calendar)
+member_schedule_6_1 = copy.deepcopy(calendar)
 # ====================================================================================================
 
 # Start Screen Configuration
@@ -220,7 +203,7 @@ class Main(QDialog):
 
     def timeselect(self):  # 개인별 시간 선택
         global loginCount
-        #print(loginCount)
+        # print(loginCount)
         global member
 
         global member_schedule_1
@@ -237,11 +220,11 @@ class Main(QDialog):
         global member_schedule_5_1
         global member_schedule_6_1
 
-        #print(member_schedule_6_1) 여기까지 0
+        # print(member_schedule_6_1) 여기까지 0
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
-        if new_login[0] == ID:#돌아와도 그 유저만 수정
-         
+        if new_login[0] == ID:  # 돌아와도 그 유저만 수정
+
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
                     member_schedule_1[SUN][i.row()] = 1  # 해당 값 1로 대체
@@ -256,12 +239,13 @@ class Main(QDialog):
                 if (i.column() == 5):
                     member_schedule_1[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_1[SAT][i.row()] = 1 #_1만 바꿨는데 나머지도 같이 바뀜 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
+                    # _1만 바꿨는데 나머지도 같이 바뀜 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
+                    member_schedule_1[SAT][i.row()] = 1
 
-            self.reset_all() #개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
+            self.reset_all()  # 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
 
-        elif new_login[1]==ID:#돌아와도 그 유저만 수정
-          
+        elif new_login[1] == ID:  # 돌아와도 그 유저만 수정
+
             self.reset_2()
 
             for i in self.time_table.selectedIndexes():
@@ -280,8 +264,8 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_2[SAT][i.row()] = 1
 
-        elif new_login[2]==ID:
-                
+        elif new_login[2] == ID:
+
             self.reset_3()
 
             for i in self.time_table.selectedIndexes():
@@ -300,7 +284,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_3[SAT][i.row()] = 1
 
-        elif new_login[3]==ID:
+        elif new_login[3] == ID:
 
             self.reset_4()
 
@@ -320,7 +304,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_4[SAT][i.row()] = 1
 
-        elif new_login[4]==ID:
+        elif new_login[4] == ID:
 
             self.reset_5()
 
@@ -340,7 +324,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_5[SAT][i.row()] = 1
 
-        elif new_login[5]==ID:
+        elif new_login[5] == ID:
 
             self.reset_6()
 
@@ -363,25 +347,25 @@ class Main(QDialog):
         self.result_print()
 
     def reset_all(self):
-        if(len(login)==1):
+        if (len(login) == 1):
             self.reset_2()
             self.reset_3()
             self.reset_4()
             self.reset_5()
             self.reset_6()
-        if(len(login)==2):
+        if (len(login) == 2):
             self.reset_3()
             self.reset_4()
             self.reset_5()
             self.reset_6()
-        if(len(login)==3):
+        if (len(login) == 3):
             self.reset_4()
             self.reset_5()
             self.reset_6()
-        if(len(login)==4):
+        if (len(login) == 4):
             self.reset_5()
             self.reset_6()
-        if(len(login)==5):
+        if (len(login) == 5):
             self.reset_6()
 
     def reset_1(self):  # 0으로 다시 초기화
@@ -443,8 +427,6 @@ class Main(QDialog):
 
         member_schedule_6 = pd.DataFrame(member_schedule_6)
         member_schedule_6_1 = np.array(member_schedule_6)
-
-        
 
         if (member == 1):
             total_schedule = member_schedule_1_1
