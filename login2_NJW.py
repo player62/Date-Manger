@@ -90,7 +90,7 @@ class Start(QDialog):
 class Locate_choose(QDialog):
     def __init__(self):
         super(Locate_choose, self).__init__()
-        loadUi("locate_choose.ui", self)
+        loadUi("locationTesting.ui", self)
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
@@ -409,7 +409,7 @@ mainwindow = Start()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
 widget.setMaximumWidth(900)
-widget.setMaximumHeight(1000)
+widget.setMaximumHeight(900)
 widget.show()
 app.exec_()
 # ====================================================================================================
