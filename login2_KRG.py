@@ -57,30 +57,41 @@ WED = 3
 THU = 4
 FRI = 5
 SAT = 6
-
+ID = ''
+PW =''
 member_schedule_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_2 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_3 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_4 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_5 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 
 member_schedule_1_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_2_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_3_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_4_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
 member_schedule_5_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+                       
 member_schedule_6_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                        WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 # ====================================================================================================
@@ -140,6 +151,8 @@ class Login(QDialog):
     def loginfunction(self):
         global loginCount
         global new_login
+        global ID
+        global PW
         if (loginCount == 0):  # 최초 로그인
             ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
             PW = self.PW.text()
@@ -207,8 +220,7 @@ class Main(QDialog):
 
     def timeselect(self):  # 개인별 시간 선택
         global loginCount
-
-        print(loginCount)
+        #print(loginCount)
         global member
 
         global member_schedule_1
@@ -225,9 +237,10 @@ class Main(QDialog):
         global member_schedule_5_1
         global member_schedule_6_1
 
+        #print(member_schedule_6_1) 여기까지 0
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
-        if len(new_login) == 1:
+        if new_login[0] == ID:#돌아와도 그 유저만 수정
          
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
@@ -243,9 +256,11 @@ class Main(QDialog):
                 if (i.column() == 5):
                     member_schedule_1[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_1[SAT][i.row()] = 1 #_1만 바꿨는데 나머지도 같이 바뀜
+                    member_schedule_1[SAT][i.row()] = 1 #_1만 바꿨는데 나머지도 같이 바뀜 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
 
-        elif len(new_login) == 2:
+            self.reset_all() #개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
+
+        elif new_login[1]==ID:#돌아와도 그 유저만 수정
           
             self.reset_2()
 
@@ -265,8 +280,8 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_2[SAT][i.row()] = 1
 
-        elif len(new_login) == 3:
-
+        elif new_login[2]==ID:
+                
             self.reset_3()
 
             for i in self.time_table.selectedIndexes():
@@ -285,7 +300,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_3[SAT][i.row()] = 1
 
-        elif len(new_login) == 4:
+        elif new_login[3]==ID:
 
             self.reset_4()
 
@@ -305,7 +320,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_4[SAT][i.row()] = 1
 
-        elif len(new_login) == 5:
+        elif new_login[4]==ID:
 
             self.reset_5()
 
@@ -325,7 +340,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_5[SAT][i.row()] = 1
 
-        elif len(new_login) == 6:
+        elif new_login[5]==ID:
 
             self.reset_6()
 
@@ -346,6 +361,28 @@ class Main(QDialog):
                     member_schedule_6[SAT][i.row()] = 1
 
         self.result_print()
+
+    def reset_all(self):
+        if(len(login)==1):
+            self.reset_2()
+            self.reset_3()
+            self.reset_4()
+            self.reset_5()
+            self.reset_6()
+        if(len(login)==2):
+            self.reset_3()
+            self.reset_4()
+            self.reset_5()
+            self.reset_6()
+        if(len(login)==3):
+            self.reset_4()
+            self.reset_5()
+            self.reset_6()
+        if(len(login)==4):
+            self.reset_5()
+            self.reset_6()
+        if(len(login)==5):
+            self.reset_6()
 
     def reset_1(self):  # 0으로 다시 초기화
         for i in range(7):
@@ -407,7 +444,7 @@ class Main(QDialog):
         member_schedule_6 = pd.DataFrame(member_schedule_6)
         member_schedule_6_1 = np.array(member_schedule_6)
 
-        #print(member_schedule_6_1)
+        
 
         if (member == 1):
             total_schedule = member_schedule_1_1
