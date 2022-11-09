@@ -73,7 +73,7 @@ member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("start_test.ui", self)
+        loadUi("forTesting2.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
