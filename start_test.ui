@@ -26,10 +26,10 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout_3">
      <property name="topMargin">
-      <number>200</number>
+      <number>230</number>
      </property>
      <property name="bottomMargin">
-      <number>200</number>
+      <number>230</number>
      </property>
      <item row="0" column="0">
       <spacer name="horizontalSpacer_2">
@@ -89,59 +89,81 @@ border-radius : 10px;</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QLabel" name="DM_label_2">
-            <property name="font">
-             <font>
-              <family>Colonna MT</family>
-              <pointsize>40</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color : rgb(0, 0, 0);
+           <widget class="QWidget" name="widget_2" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QLabel" name="DM_label_2">
+               <property name="font">
+                <font>
+                 <family>Colonna MT</family>
+                 <pointsize>40</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color : rgb(0, 0, 0);
 background-color : rgba(255, 255, 255, 0);
 
 font-family : 'Colonna MT';
 font-weight : bold;
 font-size : 40pt; </string>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Date&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="DM_label">
-            <property name="font">
-             <font>
-              <family>Colonna MT</family>
-              <pointsize>40</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color : rgb(0, 0, 0);
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Date&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="DM_label">
+               <property name="font">
+                <font>
+                 <family>Colonna MT</family>
+                 <pointsize>40</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color : rgb(0, 0, 0);
 background-color : rgba(255, 255, 255, 0);
 
 font-family : 'Colonna MT';
 font-weight : bold;
 font-size : 40pt; </string>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>10</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item>
              <widget class="QLabel" name="label">
               <property name="styleSheet">
@@ -186,6 +208,22 @@ font-size : 12pt;</string>
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>10</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
