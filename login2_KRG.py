@@ -239,10 +239,7 @@ class Main(QDialog):
                 if (i.column() == 5):
                     member_schedule_1[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    # _1만 바꿨는데 나머지도 같이 바뀜 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
                     member_schedule_1[SAT][i.row()] = 1
-
-            self.reset_all()  # 개빡쳐서 동작 끝나고 나머지 0으로 다시 초기화
 
         elif new_login[1] == ID:  # 돌아와도 그 유저만 수정
 
@@ -345,28 +342,6 @@ class Main(QDialog):
                     member_schedule_6[SAT][i.row()] = 1
 
         self.result_print()
-
-    def reset_all(self):
-        if (len(login) == 1):
-            self.reset_2()
-            self.reset_3()
-            self.reset_4()
-            self.reset_5()
-            self.reset_6()
-        if (len(login) == 2):
-            self.reset_3()
-            self.reset_4()
-            self.reset_5()
-            self.reset_6()
-        if (len(login) == 3):
-            self.reset_4()
-            self.reset_5()
-            self.reset_6()
-        if (len(login) == 4):
-            self.reset_5()
-            self.reset_6()
-        if (len(login) == 5):
-            self.reset_6()
 
     def reset_1(self):  # 0으로 다시 초기화
         for i in range(7):
