@@ -51,6 +51,10 @@ reset_6 = np.full(27, 0)
 reset_7 = np.full(27, 0)
 reset_8 = np.full(27, 0)  # 이걸로 재 초기화
 
+columns_day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+index_time = ['9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00',
+              '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30,', '20:00', '20:30', '21:00', '21:30', '22:00']
+
 SUN = 0
 MON = 1
 TUE = 2
@@ -531,24 +535,35 @@ class Main(QDialog):
 
         if (member == 1):
             total_schedule = member_schedule_1_1
+            total_schedule = pd.DataFrame(total_schedule)
             print(total_schedule)
         elif (member == 2):
             total_schedule = member_schedule_1_1 + member_schedule_2_1
+            total_schedule = pd.DataFrame(total_schedule)
             print(total_schedule)
         elif (member == 3):
             total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1
+            total_schedule_to_excel = pd.DataFrame(
+                total_schedule, index=index_time, columns=columns_day)
+
+            total_schedule_to_excel.to_excel(excel_writer='sample.xlsx')
+
             print(total_schedule)
         elif (member == 4):
             total_schedule = member_schedule_1_1 + member_schedule_2_1 + \
                 member_schedule_3_1 + member_schedule_4_1
+            total_schedule = pd.DataFrame(total_schedule)
+
             print(total_schedule)
         elif (member == 5):
             total_schedule = member_schedule_1_1 + member_schedule_2_1 + \
                 member_schedule_3_1 + member_schedule_4_1 + member_schedule_5_1
+            total_schedule = pd.DataFrame(total_schedule)
             print(total_schedule)
         elif (member == 6):
             total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1 + \
                 member_schedule_4_1 + member_schedule_5_1 + member_schedule_6_1
+            total_schedule = pd.DataFrame(total_schedule)
             print(total_schedule)
 
     def returnfunction(self):
