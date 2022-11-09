@@ -13,6 +13,8 @@ import numpy as np
 
 # Function for Fixing Font Sizes by Screen Resolution
 # ====================================================================================================
+
+
 def suppress_qt_warnings():
     environ["QT_DEVICE_PIXEL_RATIO"] = "0"
     environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -20,11 +22,13 @@ def suppress_qt_warnings():
     environ["QT_SCALE_FACTOR"] = "1"
 # ====================================================================================================
 
+
 # Variables Declaration
 # ====================================================================================================
 loginDict = {}
 loginCount = 0
 login = []
+new_login = []
 locationList = []
 
 member = 0
@@ -66,14 +70,29 @@ member_schedule_5 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 member_schedule_6 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
                      WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+
+member_schedule_1_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_2_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_3_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_4_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_5_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
+member_schedule_6_1 = {SUN: reset_1, MON: reset_2, TUE: reset_3,
+                       WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 # ====================================================================================================
 
 # Start Screen Configuration
 # ====================================================================================================
+
+
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("start_test.ui", self)
+        loadUi("start.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
@@ -87,6 +106,8 @@ class Start(QDialog):
 
 # Location Choosing Screen Configuration
 # ====================================================================================================
+
+
 class Locate_choose(QDialog):
     def __init__(self):
         super(Locate_choose, self).__init__()
@@ -94,11 +115,11 @@ class Locate_choose(QDialog):
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
-        
+
         locationList.append(self.locate_1.text())
         locationList.append(self.locate_2.text())
         locationList.append(self.locate_3.text())
-        
+
         start2 = Login()
         widget.addWidget(start2)
         widget.setCurrentIndex(widget.currentIndex()+1)
@@ -106,6 +127,8 @@ class Locate_choose(QDialog):
 
 # Login Screen Configuration
 # ====================================================================================================
+
+
 class Login(QDialog):
 
     def __init__(self):
@@ -116,12 +139,17 @@ class Login(QDialog):
 
     def loginfunction(self):
         global loginCount
+        global new_login
         if (loginCount == 0):  # 최초 로그인
             ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
             PW = self.PW.text()
             loginDict[ID] = PW
             login.append(ID)
-            print(login)
+            for ID in login:
+                if ID not in new_login:
+                    new_login.append(ID)
+            print(new_login)
+
             print("Login Success ID: ", ID)
             loginCount += 1
             self.loginwindowtransfer()
@@ -133,7 +161,10 @@ class Login(QDialog):
                 if (PW2 == loginDict[ID]):
                     print("Login Success ID: ", ID)
                     login.append(ID)
-                    print(login)
+                    for ID in login:
+                        if ID not in new_login:
+                            new_login.append(ID)
+                    print(new_login)
                     self.loginwindowtransfer()
                 else:
                     print("Wrong PW")  # 로그인 실패시 그화면 그대로
@@ -143,8 +174,11 @@ class Login(QDialog):
                 PW = self.PW.text()
                 loginDict[ID] = PW
                 login.append(ID)
+                for ID in login:
+                    if ID not in new_login:
+                        new_login.append(ID)
                 loginCount += 1
-                print(login)
+                print(new_login)
                 print("Login Success ID: ", ID)
                 self.loginwindowtransfer()
 
@@ -156,12 +190,14 @@ class Login(QDialog):
 
 # Main Screen Configuration
 # ====================================================================================================
+
+
 class Main(QDialog):
     def __init__(self):
         super(Main, self).__init__()
         loadUi("mainwindow.ui", self)
         # 지역 선택
-        
+
         for lc in locationList:
             self.locateselect_combobox.addItem(lc)  # 콤보박스에 장소 추가
 
@@ -191,8 +227,8 @@ class Main(QDialog):
 
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
-        if (loginCount == 1):
-
+        if len(new_login) == 1:
+         
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
                     member_schedule_1[SUN][i.row()] = 1  # 해당 값 1로 대체
@@ -207,12 +243,10 @@ class Main(QDialog):
                 if (i.column() == 5):
                     member_schedule_1[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_1[SAT][i.row()] = 1
+                    member_schedule_1[SAT][i.row()] = 1 #_1만 바꿨는데 나머지도 같이 바뀜
 
-            member_schedule_1 = pd.DataFrame(member_schedule_1)
-            member_schedule_1_1 = np.array(member_schedule_1)
-
-        elif loginCount == 2:
+        elif len(new_login) == 2:
+          
             self.reset_2()
 
             for i in self.time_table.selectedIndexes():
@@ -231,12 +265,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_2[SAT][i.row()] = 1
 
-            member_schedule_2 = pd.DataFrame(member_schedule_2)
-            member_schedule_2_1 = np.array(member_schedule_2)
-            
-            self.result_print()
-
-        elif loginCount == 3:
+        elif len(new_login) == 3:
 
             self.reset_3()
 
@@ -256,13 +285,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_3[SAT][i.row()] = 1
 
-            member_schedule_3 = pd.DataFrame(member_schedule_3)
-            member_schedule_3_1 = np.array(member_schedule_3)
-            #total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1
-            #print(total_schedule)
-            self.result_print()
-
-        elif loginCount == 4:
+        elif len(new_login) == 4:
 
             self.reset_4()
 
@@ -282,11 +305,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_4[SAT][i.row()] = 1
 
-            member_schedule_4 = pd.DataFrame(member_schedule_4)
-            member_schedule_4_1 = np.array(member_schedule_4)
-            self.result_print()
-
-        elif loginCount == 5:
+        elif len(new_login) == 5:
 
             self.reset_5()
 
@@ -306,11 +325,7 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_5[SAT][i.row()] = 1
 
-            member_schedule_5 = pd.DataFrame(member_schedule_5)
-            member_schedule_5_1 = np.array(member_schedule_5)
-            self.result_print()
-
-        elif loginCount == 6:
+        elif len(new_login) == 6:
 
             self.reset_6()
 
@@ -330,41 +345,41 @@ class Main(QDialog):
                 if (i.column() == 6):
                     member_schedule_6[SAT][i.row()] = 1
 
-            member_schedule_6 = pd.DataFrame(member_schedule_6)
-            member_schedule_6_1 = np.array(member_schedule_1)
-            self.result_print()
+        self.result_print()
 
-    def reset_1(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_1(self):  # 0으로 다시 초기화
         for i in range(7):
             member_schedule_1[i][:] = reset_8
 
-    def reset_2(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_2(self):  # 0으로 다시 초기화
         for i in range(7):
-            member_schedule_2[i][0:] = reset_8
+            member_schedule_2[i][:] = reset_8
 
-    def reset_3(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_3(self):  # 0으로 다시 초기화
         for i in range(7):
-            member_schedule_3[i][0:] = reset_8
+            member_schedule_3[i][:] = reset_8
 
-    def reset_4(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_4(self):  # 0으로 다시 초기화
         for i in range(7):
-            member_schedule_4[i][0:] = reset_8
+            member_schedule_4[i][:] = reset_8
 
-    def reset_5(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_5(self):  # 0으로 다시 초기화
         for i in range(7):
-            member_schedule_5[i][0:] = reset_8
+            member_schedule_5[i][:] = reset_8
 
-    def reset_6(self):  # -1로 다시 초기화
-        global reset_8
+    def reset_6(self):  # 0으로 다시 초기화
         for i in range(7):
-            member_schedule_6[i][0:] = reset_8
+            member_schedule_6[i][:] = reset_8
 
     def result_print(self):
+
+        global member_schedule_1
+        global member_schedule_2
+        global member_schedule_3
+        global member_schedule_4
+        global member_schedule_5
+        global member_schedule_6
+
         global total_schedule
 
         global member_schedule_1_1
@@ -373,7 +388,27 @@ class Main(QDialog):
         global member_schedule_4_1
         global member_schedule_5_1
         global member_schedule_6_1
-        
+
+        member_schedule_1 = pd.DataFrame(member_schedule_1)
+        member_schedule_1_1 = np.array(member_schedule_1)
+
+        member_schedule_2 = pd.DataFrame(member_schedule_2)
+        member_schedule_2_1 = np.array(member_schedule_2)
+
+        member_schedule_3 = pd.DataFrame(member_schedule_3)
+        member_schedule_3_1 = np.array(member_schedule_3)
+
+        member_schedule_4 = pd.DataFrame(member_schedule_4)
+        member_schedule_4_1 = np.array(member_schedule_4)
+
+        member_schedule_5 = pd.DataFrame(member_schedule_5)
+        member_schedule_5_1 = np.array(member_schedule_5)
+
+        member_schedule_6 = pd.DataFrame(member_schedule_6)
+        member_schedule_6_1 = np.array(member_schedule_6)
+
+        #print(member_schedule_6_1)
+
         if (member == 1):
             total_schedule = member_schedule_1_1
             print(total_schedule)
@@ -384,13 +419,16 @@ class Main(QDialog):
             total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1
             print(total_schedule)
         elif (member == 4):
-            total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1 + member_schedule_4_1
+            total_schedule = member_schedule_1_1 + member_schedule_2_1 + \
+                member_schedule_3_1 + member_schedule_4_1
             print(total_schedule)
         elif (member == 5):
-            total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1 + member_schedule_4_1 + member_schedule_5_1
+            total_schedule = member_schedule_1_1 + member_schedule_2_1 + \
+                member_schedule_3_1 + member_schedule_4_1 + member_schedule_5_1
             print(total_schedule)
         elif (member == 6):
-            total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1 + member_schedule_4_1 + member_schedule_5_1 + member_schedule_6_1
+            total_schedule = member_schedule_1_1 + member_schedule_2_1 + member_schedule_3_1 + \
+                member_schedule_4_1 + member_schedule_5_1 + member_schedule_6_1
             print(total_schedule)
 
     def returnfunction(self):
@@ -398,6 +436,7 @@ class Main(QDialog):
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex()+1)
 # ====================================================================================================
+
 
 # Application Run
 # ====================================================================================================
@@ -408,8 +447,8 @@ mainwindow = Start()
 
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
-widget.setMaximumWidth(900)
-widget.setMaximumHeight(1000)
+widget.setFixedWidth(900)
+widget.setFixedHeight(1000)
 widget.show()
 app.exec_()
 # ====================================================================================================
