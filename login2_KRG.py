@@ -227,19 +227,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_1[SUN][i.row()] = 1  # 해당 값 1로 대체
+                    if (member_schedule_1[SUN][i.row()] == 1):
+                        member_schedule_1[SUN][i.row()] = 0
+                    else:
+                        member_schedule_1[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_1[MON][i.row()] = 1
+                    if (member_schedule_1[MON][i.row()] == 1):
+                        member_schedule_1[MON][i.row()] = 0
+                    else:
+                        member_schedule_1[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_1[TUE][i.row()] = 1
+                    if (member_schedule_1[TUE][i.row()] == 1):
+                        member_schedule_1[TUE][i.row()] = 0
+                    else:
+                        member_schedule_1[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_1[WED][i.row()] = 1
+                    if (member_schedule_1[WED][i.row()] == 1):
+                        member_schedule_1[WED][i.row()] = 0
+                    else:
+                        member_schedule_1[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_1[THU][i.row()] = 1
+                    if (member_schedule_1[THU][i.row()] == 1):
+                        member_schedule_1[THU][i.row()] = 0
+                    else:
+                        member_schedule_1[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_1[FRI][i.row()] = 1
+                    if (member_schedule_1[FRI][i.row()] == 1):
+                        member_schedule_1[FRI][i.row()] = 0
+                    else:
+                        member_schedule_1[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_1[SAT][i.row()] = 1
+                    if (member_schedule_1[SAT][i.row()] == 1):
+                        member_schedule_1[SAT][i.row()] = 0
+                    else:
+                        member_schedule_1[SAT][i.row()] = 1
 
         elif new_login[1] == ID:  # 돌아와도 그 유저만 수정
 
@@ -247,19 +268,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_2[SUN][i.row()] = 1  # 해당 값 1로 대체
+                    if (member_schedule_2[SUN][i.row()] == 1):
+                        member_schedule_2[SUN][i.row()] = 0
+                    else:
+                        member_schedule_2[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_2[MON][i.row()] = 1
+                    if (member_schedule_2[MON][i.row()] == 1):
+                        member_schedule_2[MON][i.row()] = 0
+                    else:
+                        member_schedule_2[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_2[TUE][i.row()] = 1
+                    if (member_schedule_2[TUE][i.row()] == 1):
+                        member_schedule_2[TUE][i.row()] = 0
+                    else:
+                        member_schedule_2[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_2[WED][i.row()] = 1
+                    if (member_schedule_2[WED][i.row()] == 1):
+                        member_schedule_2[WED][i.row()] = 0
+                    else:
+                        member_schedule_2[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_2[THU][i.row()] = 1
+                    if (member_schedule_2[THU][i.row()] == 1):
+                        member_schedule_2[THU][i.row()] = 0
+                    else:
+                        member_schedule_2[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_2[FRI][i.row()] = 1
+                    if (member_schedule_2[FRI][i.row()] == 1):
+                        member_schedule_2[FRI][i.row()] = 1
+                    else:
+                        member_schedule_2[THU][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_2[SAT][i.row()] = 1
+                    if (member_schedule_2[SAT][i.row()] == 1):
+                        member_schedule_2[SAT][i.row()] = 0
+                    else:
+                        member_schedule_2[SAT][i.row()] = 1
 
         elif new_login[2] == ID:
 
@@ -267,19 +309,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_3[SUN][i.row()] = 1  # 해당 값 1로 대체
+                    if (member_schedule_3[SUN][i.row()] == 1):
+                        member_schedule_3[SUN][i.row()] = 0
+                    else:
+                        member_schedule_3[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_3[MON][i.row()] = 1
+                    if (member_schedule_3[MON][i.row()] == 1):
+                        member_schedule_3[MON][i.row()] = 0
+                    else:
+                        member_schedule_3[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_3[TUE][i.row()] = 1
+                    if (member_schedule_3[TUE][i.row()] == 1):
+                        member_schedule_3[TUE][i.row()] = 0
+                    else:
+                        member_schedule_3[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_3[WED][i.row()] = 1
+                    if (member_schedule_3[WED][i.row()] == 1):
+                        member_schedule_3[WED][i.row()] = 0
+                    else:
+                        member_schedule_3[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_3[THU][i.row()] = 1
+                    if (member_schedule_3[THU][i.row()] == 1):
+                        member_schedule_3[THU][i.row()] = 0
+                    else:
+                        member_schedule_3[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_3[FRI][i.row()] = 1
+                    if (member_schedule_3[FRI][i.row()] == 1):
+                        member_schedule_3[FRI][i.row()] = 0
+                    else:
+                        member_schedule_3[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_3[SAT][i.row()] = 1
+                    if (member_schedule_3[SAT][i.row()] == 1):
+                        member_schedule_3[SAT][i.row()] = 0
+                    else:
+                        member_schedule_3[SAT][i.row()] = 1
 
         elif new_login[3] == ID:
 
@@ -287,19 +350,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_4[SUN][i.row()] = 1
+                    if (member_schedule_4[SUN][i.row()] == 1):
+                        member_schedule_4[SUN][i.row()] = 0
+                    else:
+                        member_schedule_4[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_4[MON][i.row()] = 1
+                    if (member_schedule_4[MON][i.row()] == 1):
+                        member_schedule_4[MON][i.row()] = 0
+                    else:
+                        member_schedule_4[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_4[TUE][i.row()] = 1
+                    if (member_schedule_4[TUE][i.row()] == 1):
+                        member_schedule_4[TUE][i.row()] = 0
+                    else:
+                        member_schedule_4[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_4[WED][i.row()] = 1
+                    if (member_schedule_4[WED][i.row()] == 1):
+                        member_schedule_4[WED][i.row()] = 0
+                    else:
+                        member_schedule_4[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_4[THU][i.row()] = 1
+                    if (member_schedule_4[THU][i.row()] == 1):
+                        member_schedule_4[THU][i.row()] = 0
+                    else:
+                        member_schedule_4[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_4[FRI][i.row()] = 1
+                    if (member_schedule_4[FRI][i.row()] == 1):
+                        member_schedule_4[FRI][i.row()] = 0
+                    else:
+                        member_schedule_4[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_4[SAT][i.row()] = 1
+                    if (member_schedule_4[SAT][i.row()] == 1):
+                        member_schedule_4[SAT][i.row()] = 0
+                    else:
+                        member_schedule_4[SAT][i.row()] = 1
 
         elif new_login[4] == ID:
 
@@ -307,19 +391,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_5[SUN][i.row()] = 1
+                    if (member_schedule_5[SUN][i.row()] == 1):
+                        member_schedule_5[SUN][i.row()] = 0
+                    else:
+                        member_schedule_5[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_5[MON][i.row()] = 1
+                    if (member_schedule_5[MON][i.row()] == 1):
+                        member_schedule_5[MON][i.row()] = 0
+                    else:
+                        member_schedule_5[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_5[TUE][i.row()] = 1
+                    if (member_schedule_5[TUE][i.row()] == 1):
+                        member_schedule_5[TUE][i.row()] = 0
+                    else:
+                        member_schedule_5[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_5[WED][i.row()] = 1
+                    if (member_schedule_5[WED][i.row()] == 1):
+                        member_schedule_5[WED][i.row()] = 0
+                    else:
+                        member_schedule_5[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_5[THU][i.row()] = 1
+                    if (member_schedule_5[THU][i.row()] == 1):
+                        member_schedule_5[THU][i.row()] = 0
+                    else:
+                        member_schedule_5[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_5[FRI][i.row()] = 1
+                    if (member_schedule_5[FRI][i.row()] == 1):
+                        member_schedule_5[FRI][i.row()] = 0
+                    else:
+                        member_schedule_5[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_5[SAT][i.row()] = 1
+                    if (member_schedule_5[SAT][i.row()] == 1):
+                        member_schedule_5[SAT][i.row()] = 0
+                    else:
+                        member_schedule_5[SAT][i.row()] = 1
 
         elif new_login[5] == ID:
 
@@ -327,19 +432,40 @@ class Main(QDialog):
 
             for i in self.time_table.selectedIndexes():
                 if (i.column() == 0):
-                    member_schedule_6[SUN][i.row()] = 1  # 해당 값 1로 대체
+                    if (member_schedule_6[SUN][i.row()] == 1):
+                        member_schedule_6[SUN][i.row()] = 0
+                    else:
+                        member_schedule_6[SUN][i.row()] = 1  # 해당 값 1로 대체
                 if (i.column() == 1):
-                    member_schedule_6[MON][i.row()] = 1
+                    if (member_schedule_6[MON][i.row()] == 1):
+                        member_schedule_6[MON][i.row()] = 0
+                    else:
+                        member_schedule_6[MON][i.row()] = 1
                 if (i.column() == 2):
-                    member_schedule_6[TUE][i.row()] = 1
+                    if (member_schedule_6[TUE][i.row()] == 1):
+                        member_schedule_6[TUE][i.row()] = 0
+                    else:
+                        member_schedule_6[TUE][i.row()] = 1
                 if (i.column() == 3):
-                    member_schedule_6[WED][i.row()] = 1
+                    if (member_schedule_6[WED][i.row()] == 1):
+                        member_schedule_6[WED][i.row()] = 0
+                    else:
+                        member_schedule_6[WED][i.row()] = 1
                 if (i.column() == 4):
-                    member_schedule_6[THU][i.row()] = 1
+                    if (member_schedule_6[THU][i.row()] == 1):
+                        member_schedule_6[THU][i.row()] = 0
+                    else:
+                        member_schedule_6[THU][i.row()] = 1
                 if (i.column() == 5):
-                    member_schedule_6[FRI][i.row()] = 1
+                    if (member_schedule_6[FRI][i.row()] == 1):
+                        member_schedule_6[FRI][i.row()] = 0
+                    else:
+                        member_schedule_6[FRI][i.row()] = 1
                 if (i.column() == 6):
-                    member_schedule_6[SAT][i.row()] = 1
+                    if (member_schedule_6[SAT][i.row()] == 1):
+                        member_schedule_6[SAT][i.row()] = 0
+                    else:
+                        member_schedule_6[SAT][i.row()] = 1
 
         self.result_print()
 
