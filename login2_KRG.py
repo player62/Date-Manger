@@ -473,6 +473,8 @@ class Main(QDialog):
 
         self.result_print()
 
+        #여기에 엑셀 불러오기 구현
+  
     def reset_1(self):  # 0으로 다시 초기화
         for i in range(7):
             member_schedule_1[i][:] = reset_8
@@ -570,6 +572,7 @@ class Main(QDialog):
         start4 = Login()
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex()+1)
+
 # ====================================================================================================
 
 
