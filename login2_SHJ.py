@@ -29,8 +29,8 @@ def suppress_qt_warnings():
 loginDict = {}
 loginCount = 0
 login = []
-new_login = []
 locationList = []
+who = 0
 
 
 def resetLocDictionary():
@@ -47,71 +47,20 @@ loc1 = resetLocDictionary()
 loc2 = resetLocDictionary()
 loc3 = resetLocDictionary()
 
-
-
-
-
 member = 0
-
-
-member_schedule_1_1 = []
-member_schedule_2_1 = []
-member_schedule_3_1 = []
-member_schedule_4_1 = []
-member_schedule_5_1 = []
-member_schedule_6_1 = []
 
 total_schedule_lc_1 = []
 total_schedule_lc_2 = []
 total_schedule_lc_3 = []
 
-reset_1 = np.full(27, 0)
-reset_2 = np.full(27, 0)
-reset_3 = np.full(27, 0)
-reset_4 = np.full(27, 0)
-reset_5 = np.full(27, 0)
-reset_6 = np.full(27, 0)
-reset_7 = np.full(27, 0)
-reset_8 = np.full(27, 0)  # 이걸로 재 초기화
 
 columns_day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 index_time = ['9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00',
               '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00']
 
-SUN = 0
-MON = 1
-TUE = 2
-WED = 3
-THU = 4
-FRI = 5
-SAT = 6
 ID = ''
 PW = ''
 
-calendar = {SUN: reset_1, MON: reset_2, TUE: reset_3,
-            WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
-
-
-member_schedule_1_lc_1 = copy.deepcopy(calendar)
-member_schedule_2_lc_1 = copy.deepcopy(calendar)
-member_schedule_3_lc_1 = copy.deepcopy(calendar)
-member_schedule_4_lc_1 = copy.deepcopy(calendar)
-member_schedule_5_lc_1 = copy.deepcopy(calendar)
-member_schedule_6_lc_1 = copy.deepcopy(calendar)
-
-member_schedule_1_lc_2 = copy.deepcopy(calendar)
-member_schedule_2_lc_2 = copy.deepcopy(calendar)
-member_schedule_3_lc_2 = copy.deepcopy(calendar)
-member_schedule_4_lc_2 = copy.deepcopy(calendar)
-member_schedule_5_lc_2 = copy.deepcopy(calendar)
-member_schedule_6_lc_2 = copy.deepcopy(calendar)
-
-member_schedule_1_lc_3 = copy.deepcopy(calendar)
-member_schedule_2_lc_3 = copy.deepcopy(calendar)
-member_schedule_3_lc_3 = copy.deepcopy(calendar)
-member_schedule_4_lc_3 = copy.deepcopy(calendar)
-member_schedule_5_lc_3 = copy.deepcopy(calendar)
-member_schedule_6_lc_3 = copy.deepcopy(calendar)
 
 # ====================================================================================================
 
@@ -172,19 +121,14 @@ class Login(QDialog):
 
     def loginfunction(self):
         global loginCount
-        global new_login
         global ID
         global PW
+        global login
         if (loginCount == 0):  # 최초 로그인
             ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
             PW = self.PW.text()
             loginDict[ID] = PW
-            login.append(ID)
-            for ID in login:
-                if ID not in new_login:
-                    new_login.append(ID)
-            print(new_login)
-
+            login = list(loginDict.keys())
             print("Login Success ID: ", ID)
             loginCount += 1
             self.loginwindowtransfer()
@@ -195,11 +139,7 @@ class Login(QDialog):
                 PW2 = self.PW.text()  # 비밀번호 기존것과 확인
                 if (PW2 == loginDict[ID]):
                     print("Login Success ID: ", ID)
-                    login.append(ID)
-                    for ID in login:
-                        if ID not in new_login:
-                            new_login.append(ID)
-                    print(new_login)
+                    login = list(loginDict.keys())
                     self.loginwindowtransfer()
                 else:
                     print("Wrong PW")  # 로그인 실패시 그화면 그대로
@@ -208,12 +148,8 @@ class Login(QDialog):
                 ID = self.ID.text()  # id에서 텍스트 가져오겠다, 그리고 변수에 넣겠다
                 PW = self.PW.text()
                 loginDict[ID] = PW
-                login.append(ID)
-                for ID in login:
-                    if ID not in new_login:
-                        new_login.append(ID)
+                login = list(loginDict.keys())
                 loginCount += 1
-                print(new_login)
                 print("Login Success ID: ", ID)
                 self.loginwindowtransfer()
 
@@ -251,281 +187,108 @@ class Main(QDialog):
         global loginCount
         # print(loginCount)
         global member
-
-        global member_schedule_1_lc_1
-        global member_schedule_2_lc_1
-        global member_schedule_3_lc_1
-        global member_schedule_4_lc_1
-        global member_schedule_5_lc_1
-        global member_schedule_6_lc_1
-
-        global member_schedule_1_lc_2
-        global member_schedule_2_lc_2
-        global member_schedule_3_lc_2
-        global member_schedule_4_lc_2
-        global member_schedule_5_lc_2
-        global member_schedule_6_lc_2
-
-        global member_schedule_1_lc_3
-        global member_schedule_2_lc_3
-        global member_schedule_3_lc_3
-        global member_schedule_4_lc_3
-        global member_schedule_5_lc_3
-        global member_schedule_6_lc_3
+        global who
 
         # print(member_schedule_6_1) 여기까지 0
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
 
         # 장소 테스트
-        if new_login[0] == ID:  # 돌아와도 그 유저만 수정
-            self.reset_1()
+        if login[0] == ID:  # 돌아와도 그 유저만 수정
+            who = 0
+            self.make_schedule(keylist)
 
+        elif login[1] == ID:  # 돌아와도 그 유저만 수정
+            who = 1
+            self.make_schedule(keylist)
 
-            if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-                for i in self.time_table.selectedIndexes():
-                    loc1 = resetLocDictionary()
-                    keylist.append((i.row(), i.column(), 0))
-                for i in keylist:
-                    loc1[i] = 1
+        elif login[2] == ID:  # 돌아와도 그 유저만 수정
+            who = 2
+            self.make_schedule(keylist)
 
+        elif login[3] == ID:  # 돌아와도 그 유저만 수정
+            who = 3
+            self.make_schedule(keylist)
 
-            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-                for i in self.time_table.selectedIndexes():
-                    loc2 = resetLocDictionary()
-                    keylist.append((i.row(), i.column(), 0))
-                for i in keylist:
-                    loc2[i] = 1
+        elif login[4] == ID:  # 돌아와도 그 유저만 수정
+            who = 4
+            self.make_schedule(keylist)
 
+        elif login[5] == ID:  # 돌아와도 그 유저만 수정
+            who = 5
+            self.make_schedule(keylist)
 
-            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-                for i in self.time_table.selectedIndexes():
-                    loc3 = resetLocDictionary()
-                    keylist.append((i.row(), i.column(), 0))
-                for i in keylist:
-                    loc3[i] = 1
+    def make_schedule(self, keylist):
+        global loc1
+        global loc2
+        global loc3
 
+        print("%d: 번째 유저" % (who+1))
+        if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+            for i in self.time_table.selectedIndexes():
+                loc1 = resetLocDictionary()
+                keylist.append((i.row(), i.column(), who))
+            for i in keylist:
+                loc1[i] = 1
 
+        elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+            for i in self.time_table.selectedIndexes():
+                loc2 = resetLocDictionary()
+                keylist.append((i.row(), i.column(), who))
+            for i in keylist:
+                loc2[i] = 1
 
+        elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+            for i in self.time_table.selectedIndexes():
+                loc3 = resetLocDictionary()
+                keylist.append((i.row(), i.column(), who))
+            for i in keylist:
+                loc3[i] = 1
 
-            timelist0 = []
-            timelist1 = []
-            timelist2 = []
-            timelist3 = []
-            timelist4 = []
-            timelist5 = []
-            timelist6 = []
+        timelist0 = []
+        timelist1 = []
+        timelist2 = []
+        timelist3 = []
+        timelist4 = []
+        timelist5 = []
+        timelist6 = []
 
-            td = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
-                  'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
-            daylist = [timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6]
+        calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
+                    'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
 
-            for day in range(7):
-                for time in range(27):
-                    daylist[day].append(loc1[(time, day, 0)])
+        timelist = [timelist0, timelist1, timelist2,
+                    timelist3, timelist4, timelist5, timelist6]
 
-            for day in range(7):
-                print(daylist[day])
+        #plan_1 = copy.deepcopy(calendar)
+        #plan_2 = copy.deepcopy(calendar)
+        #plan_3 = copy.deepcopy(calendar)
 
+        #daylist_1 = copy.deepcopy(timelist)
+        #daylist_2 = copy.deepcopy(timelist)
+        #daylist_3 = copy.deepcopy(timelist)
 
+        for day in range(7):
+            for time in range(27):
+                timelist[day].append(loc1[(time, day, who)])
+                #daylist_2[day].append(loc2[(time, day, who)])
+                #daylist_3[day].append(loc3[(time, day, who)])
 
+        calendar = pd.DataFrame(calendar, index=index_time, columns=columns_day)
+        td_1 = np.array(calendar)
+        print(calendar)
 
-
-
-            td = pd.DataFrame(td, index=index_time, columns=columns_day)
-
-            td_1 = np.array(td)
-
-            print(td)
-
-            print(td_1)
-
-
-
-
-
-
-
-            
-
-
-
-
-
-        #self.result_process()
+        # self.result_process()
 
         # 여기에 엑셀 불러오기 구현
 
-    def reset_1(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_1_lc_1[i][:] = reset_8
-            member_schedule_1_lc_2[i][:] = reset_8
-            member_schedule_1_lc_3[i][:] = reset_8
+    """def result_process(self):
 
-    def reset_2(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_2_lc_1[i][:] = reset_8
-            member_schedule_2_lc_2[i][:] = reset_8
-            member_schedule_2_lc_3[i][:] = reset_8
+        total_schedule_lc_1 = 
+        total_schedule_lc_2 = 
+        total_schedule_lc_3 = 
 
-    def reset_3(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_3_lc_1[i][:] = reset_8
-            member_schedule_3_lc_2[i][:] = reset_8
-            member_schedule_3_lc_3[i][:] = reset_8
-
-    def reset_4(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_4_lc_1[i][:] = reset_8
-            member_schedule_4_lc_2[i][:] = reset_8
-            member_schedule_4_lc_3[i][:] = reset_8
-
-    def reset_5(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_5_lc_1[i][:] = reset_8
-            member_schedule_5_lc_2[i][:] = reset_8
-            member_schedule_5_lc_3[i][:] = reset_8
-
-    def reset_6(self):  # 0으로 다시 초기화
-        for i in range(7):
-            member_schedule_6_lc_1[i][:] = reset_8
-            member_schedule_6_lc_2[i][:] = reset_8
-            member_schedule_6_lc_3[i][:] = reset_8
-
-    def result_process(self):
-
-        global total_schedule_lc_1
-        global total_schedule_lc_2
-        global total_schedule_lc_3
-
-        global member_schedule_1_lc_1
-        global member_schedule_2_lc_1
-        global member_schedule_3_lc_1
-        global member_schedule_4_lc_1
-        global member_schedule_5_lc_1
-        global member_schedule_6_lc_1
-
-        global member_schedule_1_lc_2
-        global member_schedule_2_lc_2
-        global member_schedule_3_lc_2
-        global member_schedule_4_lc_2
-        global member_schedule_5_lc_2
-        global member_schedule_6_lc_2
-
-        global member_schedule_1_lc_3
-        global member_schedule_2_lc_3
-        global member_schedule_3_lc_3
-        global member_schedule_4_lc_3
-        global member_schedule_5_lc_3
-        global member_schedule_6_lc_3
-
-        member_schedule_1_lc_1 = pd.DataFrame(member_schedule_1_lc_1)
-        member_schedule_1_lc_1_print = np.array(member_schedule_1_lc_1)
-
-        member_schedule_1_lc_2 = pd.DataFrame(member_schedule_1_lc_2)
-        member_schedule_1_lc_2_print = np.array(member_schedule_1_lc_2)
-
-        member_schedule_1_lc_3 = pd.DataFrame(member_schedule_1_lc_3)
-        member_schedule_1_lc_3_print = np.array(member_schedule_1_lc_3)
-
-        member_schedule_2_lc_1 = pd.DataFrame(member_schedule_2_lc_1)
-        member_schedule_2_lc_1_print = np.array(member_schedule_2_lc_1)
-
-        member_schedule_2_lc_2 = pd.DataFrame(member_schedule_1_lc_2)
-        member_schedule_2_lc_2_print = np.array(member_schedule_1_lc_2)
-
-        member_schedule_2_lc_3 = pd.DataFrame(member_schedule_2_lc_3)
-        member_schedule_2_lc_3_print = np.array(member_schedule_2_lc_3)
-
-        member_schedule_3_lc_1 = pd.DataFrame(member_schedule_3_lc_1)
-        member_schedule_3_lc_1_print = np.array(member_schedule_3_lc_1)
-
-        member_schedule_3_lc_2 = pd.DataFrame(member_schedule_3_lc_2)
-        member_schedule_3_lc_2_print = np.array(member_schedule_3_lc_2)
-
-        member_schedule_3_lc_3 = pd.DataFrame(member_schedule_3_lc_3)
-        member_schedule_3_lc_3_print = np.array(member_schedule_3_lc_3)
-
-        member_schedule_4_lc_1 = pd.DataFrame(member_schedule_4_lc_1)
-        member_schedule_4_lc_1_print = np.array(member_schedule_4_lc_1)
-
-        member_schedule_4_lc_2 = pd.DataFrame(member_schedule_4_lc_2)
-        member_schedule_4_lc_2_print = np.array(member_schedule_4_lc_2)
-
-        member_schedule_4_lc_3 = pd.DataFrame(member_schedule_4_lc_3)
-        member_schedule_4_lc_3_print = np.array(member_schedule_4_lc_3)
-
-        member_schedule_5_lc_1 = pd.DataFrame(member_schedule_5_lc_1)
-        member_schedule_5_lc_1_print = np.array(member_schedule_5_lc_1)
-
-        member_schedule_5_lc_2 = pd.DataFrame(member_schedule_5_lc_2)
-        member_schedule_5_lc_2_print = np.array(member_schedule_5_lc_2)
-
-        member_schedule_5_lc_3 = pd.DataFrame(member_schedule_5_lc_3)
-        member_schedule_5_lc_3_print = np.array(member_schedule_5_lc_3)
-
-        member_schedule_6_lc_1 = pd.DataFrame(member_schedule_6_lc_1)
-        member_schedule_6_lc_1_print = np.array(member_schedule_6_lc_1)
-
-        member_schedule_6_lc_2 = pd.DataFrame(member_schedule_6_lc_2)
-        member_schedule_6_lc_2_print = np.array(member_schedule_6_lc_2)
-
-        member_schedule_6_lc_3 = pd.DataFrame(member_schedule_6_lc_3)
-        member_schedule_6_lc_3_print = np.array(member_schedule_6_lc_3)
-
-        if (member == 1):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print
-            self.result_print()
-
-        elif (member == 2):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print + member_schedule_2_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print + member_schedule_2_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print + member_schedule_2_lc_3_print
-            self.result_print()
-
-        elif (member == 3):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print + \
-                                  member_schedule_2_lc_1_print + member_schedule_3_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print + \
-                                  member_schedule_2_lc_2_print + member_schedule_3_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print + \
-                                  member_schedule_2_lc_3_print + member_schedule_3_lc_3_print
-            self.result_print()
-
-        elif (member == 4):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print + member_schedule_2_lc_1_print + \
-                                  member_schedule_3_lc_1_print + member_schedule_4_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print + member_schedule_2_lc_2_print + \
-                                  member_schedule_3_lc_2_print + member_schedule_4_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print + member_schedule_2_lc_3_print + \
-                                  member_schedule_3_lc_3_print + member_schedule_4_lc_3_print
-            self.result_print()
-        elif (member == 5):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print + member_schedule_2_lc_1_print + \
-                                  member_schedule_3_lc_1_print + \
-                                  member_schedule_4_lc_1_print + member_schedule_5_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print + member_schedule_2_lc_2_print + \
-                                  member_schedule_3_lc_2_print + \
-                                  member_schedule_4_lc_2_print + member_schedule_5_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print + member_schedule_2_lc_3_print + \
-                                  member_schedule_3_lc_3_print + \
-                                  member_schedule_4_lc_3_print + member_schedule_5_lc_3_print
-            self.result_print()
-        elif (member == 6):
-            total_schedule_lc_1 = member_schedule_1_lc_1_print + member_schedule_2_lc_1_print + member_schedule_3_lc_1_print + \
-                                  member_schedule_4_lc_1_print + \
-                                  member_schedule_5_lc_1_print + member_schedule_6_lc_1_print
-            total_schedule_lc_2 = member_schedule_1_lc_2_print + member_schedule_2_lc_2_print + member_schedule_3_lc_2_print + \
-                                  member_schedule_4_lc_2_print + \
-                                  member_schedule_5_lc_2_print + member_schedule_6_lc_2_print
-            total_schedule_lc_3 = member_schedule_1_lc_3_print + member_schedule_2_lc_3_print + member_schedule_3_lc_3_print + \
-                                  member_schedule_4_lc_3_print + \
-                                  member_schedule_5_lc_3_print + member_schedule_6_lc_3_print
-
-            self.result_print()
-
+        self.result_print()
+"""
 
     def result_print(self):
         global total_schedule_lc_1
@@ -550,7 +313,6 @@ class Main(QDialog):
                 writer, sheet_name=locationList[1])
             total_schedule_to_excel_lc_3.to_excel(
                 writer, sheet_name=locationList[2])
-
 
     def returnfunction(self):
         start4 = Login()
