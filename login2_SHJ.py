@@ -91,6 +91,7 @@ PW = ''
 calendar = {SUN: reset_1, MON: reset_2, TUE: reset_3,
             WED: reset_4, THU: reset_5, FRI: reset_6, SAT: reset_7}
 
+
 member_schedule_1_lc_1 = copy.deepcopy(calendar)
 member_schedule_2_lc_1 = copy.deepcopy(calendar)
 member_schedule_3_lc_1 = copy.deepcopy(calendar)
@@ -279,6 +280,8 @@ class Main(QDialog):
         # 장소 테스트
         if new_login[0] == ID:  # 돌아와도 그 유저만 수정
             self.reset_1()
+
+
             if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     loc1 = resetLocDictionary()
@@ -286,43 +289,66 @@ class Main(QDialog):
                 for i in keylist:
                     loc1[i] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     loc2 = resetLocDictionary()
                     keylist.append((i.row(), i.column(), 0))
                 for i in keylist:
                     loc2[i] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     loc3 = resetLocDictionary()
                     keylist.append((i.row(), i.column(), 0))
                 for i in keylist:
                     loc3[i] = 1
 
-            print("S    M    T    W    T    F    S")
-            for time in range(27):
-                for day in range(7):
-                    print(loc1[(time, day, 0)], end='    ')
-                print()
 
-            print("===============================")
 
-            print("S    M    T    W    T    F    S")
-            for time in range(27):
-                for day in range(7):
-                    print(loc2[(time, day, 0)], end='    ')
-                print()
 
-            print("===============================")
+            timelist0 = []
+            timelist1 = []
+            timelist2 = []
+            timelist3 = []
+            timelist4 = []
+            timelist5 = []
+            timelist6 = []
 
-            print("S    M    T    W    T    F    S")
-            for time in range(27):
-                for day in range(7):
-                    print(loc3[(time, day, 0)], end='    ')
-                print()
+            td = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
+                  'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
+            daylist = [timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6]
 
-            print("================================")
+            for day in range(7):
+                for time in range(27):
+                    daylist[day].append(loc1[(time, day, 0)])
+
+            for day in range(7):
+                print(daylist[day])
+
+
+
+
+
+
+            td = pd.DataFrame(td, index=index_time, columns=columns_day)
+
+            td_1 = np.array(td)
+
+            print(td)
+
+            print(td_1)
+
+
+
+
+
+
+
+            
+
+
 
 
 
@@ -511,7 +537,7 @@ class Main(QDialog):
         total_schedule_to_excel_lc_2 = pd.DataFrame(
             total_schedule_lc_2, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
-            total_schedule_lc_2, index=index_time, columns=columns_day)
+            total_schedule_lc_3, index=index_time, columns=columns_day)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
