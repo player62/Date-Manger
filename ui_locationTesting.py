@@ -19,7 +19,7 @@ class Ui_Dialog(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(Dialog)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setContentsMargins(250, 100, 250, 100)
+        self.gridLayout.setContentsMargins(250, 0, 250, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -157,8 +157,12 @@ class Ui_Dialog(object):
         self.verticalLayout.setStretch(2, 5)
         self.verticalLayout.setStretch(3, 1)
         self.verticalLayout_2.addLayout(self.verticalLayout)
-        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget, 1, 0, 1, 1)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 90, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.gridLayout.addItem(spacerItem13, 0, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 90, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.gridLayout_2.addItem(spacerItem14, 1, 0, 1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
