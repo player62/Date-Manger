@@ -214,6 +214,7 @@ class Main(QDialog):
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
         self.makescedule_button.clicked.connect(self.timeselect)
+        self.makescedule_button.clicked.connect(self.returntoschedule)
 
     def timeselect(self):  # 개인별 시간 선택
         global loginCount
@@ -288,7 +289,7 @@ class Main(QDialog):
                         else:
                             member_schedule_1_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
 
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
@@ -408,7 +409,7 @@ class Main(QDialog):
                         else:
                             member_schedule_2_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_2_lc_2[SUN][i.row()] == 1):
@@ -447,7 +448,7 @@ class Main(QDialog):
                         else:
                             member_schedule_2_lc_2[SAT][i.row()] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_2_lc_3[SUN][i.row()] == 1):
@@ -527,7 +528,7 @@ class Main(QDialog):
                         else:
                             member_schedule_3_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_3_lc_2[SUN][i.row()] == 1):
@@ -566,7 +567,7 @@ class Main(QDialog):
                         else:
                             member_schedule_3_lc_2[SAT][i.row()] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_3_lc_3[SUN][i.row()] == 1):
@@ -645,7 +646,7 @@ class Main(QDialog):
                         else:
                             member_schedule_4_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_4_lc_2[SUN][i.row()] == 1):
@@ -684,7 +685,7 @@ class Main(QDialog):
                         else:
                             member_schedule_4_lc_2[SAT][i.row()] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_4_lc_3[SUN][i.row()] == 1):
@@ -763,7 +764,7 @@ class Main(QDialog):
                         else:
                             member_schedule_5_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_5_lc_2[SUN][i.row()] == 1):
@@ -802,7 +803,7 @@ class Main(QDialog):
                         else:
                             member_schedule_5_lc_2[SAT][i.row()] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_5_lc_3[SUN][i.row()] == 1):
@@ -881,7 +882,7 @@ class Main(QDialog):
                         else:
                             member_schedule_6_lc_1[SAT][i.row()] = 1
 
-            if (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
+            elif (locationList[1] == self.locateselect_combobox.currentText()):  # 2번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_6_lc_2[SUN][i.row()] == 1):
@@ -920,7 +921,7 @@ class Main(QDialog):
                         else:
                             member_schedule_6_lc_2[SAT][i.row()] = 1
 
-            if (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
+            elif (locationList[2] == self.locateselect_combobox.currentText()):  # 3번 장소 선택
                 for i in self.time_table.selectedIndexes():
                     if (i.column() == 0):
                         if (member_schedule_6_lc_3[SUN][i.row()] == 1):
@@ -1160,6 +1161,11 @@ class Main(QDialog):
     def returnfunction(self):
         start4 = Login()
         widget.addWidget(start4)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def returntoschedule(self):  # 로그인 성공시 화면 전환을 함수로 따로 묶음
+        start5 = Main()
+        widget.addWidget(start5)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 
