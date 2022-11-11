@@ -225,22 +225,31 @@ class Main(QDialog):
 
         print("%d: 번째 유저" % (who+1))
         if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+            loc1 = resetLocDictionary()
             for i in self.time_table.selectedIndexes():
-                loc1 = resetLocDictionary()
+
                 keylist.append((i.row(), i.column(), who))
             for i in keylist:
                 loc1[i] = 1
 
+
         elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+
+            loc2 = resetLocDictionary()
+
             for i in self.time_table.selectedIndexes():
-                loc2 = resetLocDictionary()
+
                 keylist.append((i.row(), i.column(), who))
+
             for i in keylist:
                 loc2[i] = 1
 
         elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+
+            loc3 = resetLocDictionary()
+
             for i in self.time_table.selectedIndexes():
-                loc3 = resetLocDictionary()
+
                 keylist.append((i.row(), i.column(), who))
             for i in keylist:
                 loc3[i] = 1
