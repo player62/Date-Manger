@@ -110,7 +110,7 @@ class Login(QDialog):
 
     def __init__(self):
         super(Login, self).__init__()
-        loadUi("login.ui", self)
+        loadUi("loginTesting.ui", self)
         self.Login_button.clicked.connect(self.loginfunction)
         self.PW.setEchoMode(QtWidgets.QLineEdit.Password)
 
@@ -159,7 +159,7 @@ class Login(QDialog):
 class Main(QDialog):
     def __init__(self):
         super(Main, self).__init__()
-        loadUi("mainwindow.ui", self)
+        loadUi("mainTesting.ui", self)
         # 지역 선택
         
         for lc in locationList:

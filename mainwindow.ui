@@ -133,6 +133,9 @@ selection-background-color: rgba(64, 255, 240, 150);</string>
     <property name="cornerButtonEnabled">
      <bool>true</bool>
     </property>
+    <property name="columnCount">
+     <number>7</number>
+    </property>
     <attribute name="horizontalHeaderVisible">
      <bool>true</bool>
     </attribute>
