@@ -293,6 +293,22 @@ selection-background-color: rgba(64, 255, 240, 150);</string>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
+             <spacer name="horizontalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QLabel" name="label">
               <property name="styleSheet">
                <string notr="true">color:rgb(0, 0, 0);
@@ -366,7 +382,40 @@ border-radius : 8px;</string>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>250</width>
+                <width>220</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="showResult">
+              <property name="styleSheet">
+               <string notr="true">color : rgb(54, 54, 54);
+background-color: rgba(255, 255, 255, 240);
+
+font-family : 'Dosis';
+font-weight : bold;
+font-size : 10pt;
+
+border-radius : 8px;</string>
+              </property>
+              <property name="text">
+               <string>Result</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
                 <height>20</height>
                </size>
               </property>
