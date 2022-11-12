@@ -241,9 +241,7 @@ class Main(QDialog):
             for i in keylist:
                 loc1[i] = 1
 
-            for time in range(27):
-                for day in range(7):
-                    newdic[(time, day, 0)] = 0
+
 
         elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
             for day in range(7):
@@ -256,9 +254,7 @@ class Main(QDialog):
 
             for i in keylist:
                 loc2[i] = 1
-            for time in range(27):
-                for day in range(7):
-                    newdic[(time, day, 1)] = 0
+
 
         elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
             for day in range(7):
@@ -271,9 +267,10 @@ class Main(QDialog):
             for i in keylist:
                 loc3[i] = 1
 
-            for time in range(27):
-                for day in range(7):
-                    newdic[(time, day, 2)] = 0
+        for time in range(27):
+            for day in range(7):
+                for place in range(3):
+                    newdic[(time, day, place)] = 0
 
         for time in range(27):
             for day in range(7):
