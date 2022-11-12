@@ -31,6 +31,12 @@ loginCount = 0
 login = []
 locationList = []
 who = 0
+newdic = {}
+
+for day in range(7):
+    for time in range(27):
+        for place in range(3):
+            newdic[(time, day, place)] = 0
 
 
 def resetLocDictionary():
@@ -71,7 +77,7 @@ PW = ''
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("start.ui", self)
+        loadUi("forTesting2.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
@@ -92,7 +98,7 @@ class Start(QDialog):
 class Locate_choose(QDialog):
     def __init__(self):
         super(Locate_choose, self).__init__()
-        loadUi("locate_choose.ui", self)
+        loadUi("locationTesting.ui", self)
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
@@ -115,7 +121,7 @@ class Login(QDialog):
 
     def __init__(self):
         super(Login, self).__init__()
-        loadUi("login.ui", self)
+        loadUi("loginTesting.ui", self)
         self.Login_button.clicked.connect(self.loginfunction)
         self.PW.setEchoMode(QtWidgets.QLineEdit.Password)
 
@@ -168,7 +174,7 @@ class Login(QDialog):
 class Main(QDialog):
     def __init__(self):
         super(Main, self).__init__()
-        loadUi("mainwindow.ui", self)
+        loadUi("mainTesting.ui", self)
         # 지역 선택
 
         for lc in locationList:
@@ -184,8 +190,6 @@ class Main(QDialog):
 
         keylist = []
 
-        global loginCount
-        # print(loginCount)
         global member
         global who
 
@@ -193,7 +197,6 @@ class Main(QDialog):
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
 
-        # 장소 테스트
         if login[0] == ID:  # 돌아와도 그 유저만 수정
             who = 0
             self.make_schedule(keylist)
@@ -222,20 +225,27 @@ class Main(QDialog):
         global loc1
         global loc2
         global loc3
+        global newdic
 
-        print("%d: 번째 유저" % (who+1))
+        print("%d번째 유저" % (who+1))
         if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-            loc1 = resetLocDictionary()
-            for i in self.time_table.selectedIndexes():
+            for day in range(7):
+                for time in range(27):
+                    loc1[(day, time, who)] = 0
 
+            for i in self.time_table.selectedIndexes():
                 keylist.append((i.row(), i.column(), who))
             for i in keylist:
                 loc1[i] = 1
 
+            for time in range(27):
+                for day in range(7):
+                    newdic[(time, day, 0)] = 0
 
         elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-
-            loc2 = resetLocDictionary()
+            for day in range(7):
+                for time in range(27):
+                    loc2[(day, time, who)] = 0
 
             for i in self.time_table.selectedIndexes():
 
@@ -243,10 +253,14 @@ class Main(QDialog):
 
             for i in keylist:
                 loc2[i] = 1
+            for time in range(27):
+                for day in range(7):
+                    newdic[(time, day, 1)] = 0
 
         elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-
-            loc3 = resetLocDictionary()
+            for day in range(7):
+                for time in range(27):
+                    loc3[(time, day, who)] = 0
 
             for i in self.time_table.selectedIndexes():
 
@@ -254,18 +268,34 @@ class Main(QDialog):
             for i in keylist:
                 loc3[i] = 1
 
+            for time in range(27):
+                for day in range(7):
+                    newdic[(time, day, 2)] = 0
+
+        for time in range(27):
+            for day in range(7):
+                for mem_num in range(6):
+                    newdic[(time, day, 0)] += loc1.get((time, day, mem_num))
+
+        for time in range(27):
+            for day in range(7):
+                for mem_num in range(6):
+                    newdic[(time, day, 1)] += loc2.get((time, day, mem_num))
+
+        for time in range(27):
+            for day in range(7):
+                for mem_num in range(6):
+                    newdic[(time, day, 2)] += loc3.get((time, day, mem_num))
+
         self.save_schedule_lc_1()
         self.save_schedule_lc_2()
         self.save_schedule_lc_3()
 
     def save_schedule_lc_1(self):
-        timelist0 = []
-        timelist1 = []
-        timelist2 = []
-        timelist3 = []
-        timelist4 = []
-        timelist5 = []
-        timelist6 = []
+        global loc1
+        global newdic
+        timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
+        ], [], [], [], [], [], []
 
         calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
                     'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
@@ -275,19 +305,17 @@ class Main(QDialog):
 
         for day in range(7):
             for time in range(27):
-                timelist[day].append(loc1[(time, day, who)])
+                timelist[day].append(newdic[(time, day, 0)])
 
-        calendar = pd.DataFrame(calendar, index=index_time, columns=columns_day)
-        td_1 = np.array(calendar)
+        calendar = pd.DataFrame(
+            calendar, index=index_time, columns=columns_day)
         print(calendar)
+
     def save_schedule_lc_2(self):
-        timelist0 = []
-        timelist1 = []
-        timelist2 = []
-        timelist3 = []
-        timelist4 = []
-        timelist5 = []
-        timelist6 = []
+        global loc2
+        global newdic
+        timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
+        ], [], [], [], [], [], []
 
         calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
                     'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
@@ -297,20 +325,17 @@ class Main(QDialog):
 
         for day in range(7):
             for time in range(27):
-                timelist[day].append(loc2[(time, day, who)])
+                timelist[day].append(newdic[(time, day, 1)])
 
-        calendar = pd.DataFrame(calendar, index=index_time, columns=columns_day)
-        td_1 = np.array(calendar)
+        calendar = pd.DataFrame(
+            calendar, index=index_time, columns=columns_day)
         print(calendar)
 
     def save_schedule_lc_3(self):
-        timelist0 = []
-        timelist1 = []
-        timelist2 = []
-        timelist3 = []
-        timelist4 = []
-        timelist5 = []
-        timelist6 = []
+        global loc3
+        global newdic
+        timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
+        ], [], [], [], [], [], []
 
         calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
                     'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
@@ -320,28 +345,26 @@ class Main(QDialog):
 
         for day in range(7):
             for time in range(27):
-                timelist[day].append(loc3[(time, day, who)])
+                timelist[day].append(newdic[(time, day, 2)])
 
-        calendar = pd.DataFrame(calendar, index=index_time, columns=columns_day)
-        td_1 = np.array(calendar)
+        calendar = pd.DataFrame(
+            calendar, index=index_time, columns=columns_day)
+
         print(calendar)
-        #self.result_process()
+        # print(calendar)
+        # self.result_process()
 
         # 여기에 엑셀 불러오기 구현
 
-    """def result_process(self):
+    # def result_process(self):
 
-        total_schedule_lc_1 = 
-        total_schedule_lc_2 = 
-        total_schedule_lc_3 = 
+        # total_schedule_lc_1 =
+        # total_schedule_lc_2 =
+        # total_schedule_lc_3 =
 
-        self.result_print()
-"""
+        # self.result_print()
 
     def result_print(self):
-        global total_schedule_lc_1
-        global total_schedule_lc_2
-        global total_schedule_lc_3
 
         total_schedule_to_excel_lc_1 = pd.DataFrame(
             total_schedule_lc_1, index=index_time, columns=columns_day)
@@ -386,8 +409,8 @@ mainwindow = Start()
 
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
-widget.setFixedWidth(900)
-widget.setFixedHeight(1000)
+widget.setMaximumWidth(900)
+widget.setMaximumHeight(900)
 widget.show()
 app.exec_()
 # ====================================================================================================
