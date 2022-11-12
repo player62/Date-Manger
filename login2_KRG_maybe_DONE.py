@@ -8,8 +8,6 @@ from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 import pandas as pd
 import openpyxl
-import numpy as np
-import copy
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -32,6 +30,9 @@ login = []
 locationList = []
 who = 0
 newdic = {}
+calendar_lc_1 = {}
+calendar_lc_2 = {}
+calendar_lc_3 = {}
 
 for day in range(7):
     for time in range(27):
@@ -183,8 +184,6 @@ class Main(QDialog):
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
         self.makescedule_button.clicked.connect(self.timeselect)
-        #self.makescedule_button.clicked.connect(self.returntoschedule)
-
 
     def timeselect(self):  # 개인별 시간 선택
 
@@ -231,22 +230,19 @@ class Main(QDialog):
 
         print("%d번째 유저" % (who+1))
         if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
-            
             for day in range(7):
                 for time in range(27):
-                    loc1[(time, day, who)] = 0
+                    loc1[(day, time, who)] = 0
 
             for i in self.time_table.selectedIndexes():
                 keylist.append((i.row(), i.column(), who))
             for i in keylist:
                 loc1[i] = 1
 
-
-
         elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
             for day in range(7):
                 for time in range(27):
-                    loc2[(time, day, who)] = 0
+                    loc2[(day, time, who)] = 0
 
             for i in self.time_table.selectedIndexes():
 
@@ -254,7 +250,6 @@ class Main(QDialog):
 
             for i in keylist:
                 loc2[i] = 1
-
 
         elif (locationList[2] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
             for day in range(7):
@@ -294,11 +289,13 @@ class Main(QDialog):
     def save_schedule_lc_1(self):
         global loc1
         global newdic
+        global calendar_lc_1
+
         timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
         ], [], [], [], [], [], []
 
-        calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
-                    'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
+        calendar_lc_1 = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
+                         'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
 
         timelist = [timelist0, timelist1, timelist2,
                     timelist3, timelist4, timelist5, timelist6]
@@ -307,18 +304,18 @@ class Main(QDialog):
             for time in range(27):
                 timelist[day].append(newdic[(time, day, 0)])
 
-        calendar = pd.DataFrame(
-            calendar, index=index_time, columns=columns_day)
-        print(calendar)
+        calendar_lc_1 = pd.DataFrame(
+            calendar_lc_1, index=index_time, columns=columns_day)
 
     def save_schedule_lc_2(self):
         global loc2
         global newdic
+        global calendar_lc_2
         timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
         ], [], [], [], [], [], []
 
-        calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
-                    'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
+        calendar_lc_2 = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
+                         'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
 
         timelist = [timelist0, timelist1, timelist2,
                     timelist3, timelist4, timelist5, timelist6]
@@ -327,18 +324,18 @@ class Main(QDialog):
             for time in range(27):
                 timelist[day].append(newdic[(time, day, 1)])
 
-        calendar = pd.DataFrame(
-            calendar, index=index_time, columns=columns_day)
-        print(calendar)
+        calendar_lc_2 = pd.DataFrame(
+            calendar_lc_2, index=index_time, columns=columns_day)
 
     def save_schedule_lc_3(self):
         global loc3
         global newdic
+        global calendar_lc_3
         timelist0, timelist1, timelist2, timelist3, timelist4, timelist5, timelist6 = [
         ], [], [], [], [], [], []
 
-        calendar = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
-                    'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
+        calendar_lc_3 = {'SUN': timelist0, 'MON': timelist1, 'TUE': timelist2,
+                         'WED': timelist3, 'THU': timelist4, 'FRI': timelist5, 'SAT': timelist6}
 
         timelist = [timelist0, timelist1, timelist2,
                     timelist3, timelist4, timelist5, timelist6]
@@ -347,35 +344,30 @@ class Main(QDialog):
             for time in range(27):
                 timelist[day].append(newdic[(time, day, 2)])
 
-        calendar = pd.DataFrame(
-            calendar, index=index_time, columns=columns_day)
+        calendar_lc_3 = pd.DataFrame(
+            calendar_lc_3, index=index_time, columns=columns_day)
 
-        print(calendar)
-        # print(calendar)
-        # self.result_process()
+        
+        self.result_print()
 
         # 여기에 엑셀 불러오기 구현
 
-    # def result_process(self):
-
-        # total_schedule_lc_1 =
-        # total_schedule_lc_2 =
-        # total_schedule_lc_3 =
-
-        # self.result_print()
-
     def result_print(self):
+        global calendar_lc_1
+        global calendar_lc_2
+        global calendar_lc_3
 
         total_schedule_to_excel_lc_1 = pd.DataFrame(
-            total_schedule_lc_1, index=index_time, columns=columns_day)
+            calendar_lc_1, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_2 = pd.DataFrame(
-            total_schedule_lc_2, index=index_time, columns=columns_day)
+            calendar_lc_2, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
-            total_schedule_lc_3, index=index_time, columns=columns_day)
+            calendar_lc_3, index=index_time, columns=columns_day)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
         print(total_schedule_to_excel_lc_3)
+
         xlxs_dir = 'sample.xlsx'
         with pd.ExcelWriter(xlxs_dir) as writer:
             total_schedule_to_excel_lc_1.to_excel(
@@ -389,11 +381,6 @@ class Main(QDialog):
         start4 = Login()
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def returntoschedule(self):  # 로그인 성공시 화면 전환을 함수로 따로 묶음
-        start5 = Main()
-        widget.addWidget(start5)
-        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
 class Result(QDialog):
