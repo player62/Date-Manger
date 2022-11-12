@@ -183,6 +183,8 @@ class Main(QDialog):
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
         self.makescedule_button.clicked.connect(self.timeselect)
+        #self.makescedule_button.clicked.connect(self.returntoschedule)
+
 
     def timeselect(self):  # 개인별 시간 선택
 
@@ -229,9 +231,10 @@ class Main(QDialog):
 
         print("%d번째 유저" % (who+1))
         if (locationList[0] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
+            
             for day in range(7):
                 for time in range(27):
-                    loc1[(day, time, who)] = 0
+                    loc1[(time, day, who)] = 0
 
             for i in self.time_table.selectedIndexes():
                 keylist.append((i.row(), i.column(), who))
@@ -245,7 +248,7 @@ class Main(QDialog):
         elif (locationList[1] == self.locateselect_combobox.currentText()):  # 1번 장소 선택
             for day in range(7):
                 for time in range(27):
-                    loc2[(day, time, who)] = 0
+                    loc2[(time, day, who)] = 0
 
             for i in self.time_table.selectedIndexes():
 
@@ -389,6 +392,11 @@ class Main(QDialog):
         start4 = Login()
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def returntoschedule(self):  # 로그인 성공시 화면 전환을 함수로 따로 묶음
+        start5 = Main()
+        widget.addWidget(start5)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
 class Result(QDialog):
