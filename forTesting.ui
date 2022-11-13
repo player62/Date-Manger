@@ -117,7 +117,7 @@ font-size : 12pt;</string>
             <item>
              <widget class="QSlider" name="member">
               <property name="minimum">
-               <number>1</number>
+               <number>2</number>
               </property>
               <property name="maximum">
                <number>6</number>

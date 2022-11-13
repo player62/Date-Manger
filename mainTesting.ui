@@ -389,7 +389,7 @@ border-radius : 8px;</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="showResult">
+             <widget class="QPushButton" name="showResult_button">
               <property name="styleSheet">
                <string notr="true">color : rgb(54, 54, 54);
 background-color: rgba(255, 255, 255, 240);

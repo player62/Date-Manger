@@ -1,13 +1,18 @@
 # Import Modules
 # ====================================================================================================
 import sys
+import os
 from os import environ
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
+from PyQt5 import uic
 import pandas as pd
 import openpyxl
+# ====================================================================================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -78,12 +83,12 @@ PW = ''
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("forTesting2.ui", self)
+        loadUi("forTesting.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
         global member
-        member = self.member_num.text()
+        member = self.member.value()
         member = int(member)
         start = Locate_choose()
         widget.addWidget(start)
@@ -103,9 +108,17 @@ class Locate_choose(QDialog):
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
+        global worksheet_name_1
+        global worksheet_name_2
+        global worksheet_name_3
+
         locationList.append(self.locate_1.text())
         locationList.append(self.locate_2.text())
         locationList.append(self.locate_3.text())
+
+        worksheet_name_1 = locationList[0]
+        worksheet_name_2 = locationList[1]
+        worksheet_name_3 = locationList[2]
 
         start2 = Login()
         widget.addWidget(start2)
@@ -184,6 +197,8 @@ class Main(QDialog):
         self.gotologin_button.clicked.connect(self.returnfunction)  # 로그인으로 회귀
 
         self.makescedule_button.clicked.connect(self.timeselect)
+
+        self.showResult_button.clicked.connect(self.showresult)
 
     def timeselect(self):  # 개인별 시간 선택
 
@@ -347,7 +362,6 @@ class Main(QDialog):
         calendar_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
 
-        
         self.result_print()
 
         # 여기에 엑셀 불러오기 구현
@@ -382,19 +396,72 @@ class Main(QDialog):
         widget.addWidget(start4)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def showresult(self):
+        start5 = Result()
+        widget.addWidget(start5)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 
 class Result(QDialog):
     def __init__(self):
         super(Result, self).__init__()
-        loadUi("show_result", self)
+        loadUi("show_result_1.ui", self)
+        self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
+                                             1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
 
+    def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
+        df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
+        df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
+        df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
 
+        df_1.fillna('', inplace=True)
+        self.result_table_1.setRowCount(df_1.shape[0])
+        self.result_table_1.setColumnCount(df_1.shape[1])
+        self.result_table_1.setHorizontalHeaderLabels(df_1.columns)
+
+        for row in df_1.iterrows():
+            values = row[1]
+            for col_index, value in enumerate(values):
+                if isinstance(value, (float, int)):
+                    value = '{0:0,.0f}'.format(value)
+                    tableItem = QTableWidgetItem(str(value))
+                    self.result_table_1.setItem(row[0], col_index, tableItem)
+# =====================================================================================================
+        df_2.fillna('', inplace=True)
+        self.result_table_2.setRowCount(df_2.shape[0])
+        self.result_table_2.setColumnCount(df_2.shape[1])
+        self.result_table_2.setHorizontalHeaderLabels(df_2.columns)
+
+        for row in df_2.iterrows():
+            values = row[1]
+            for col_index, value in enumerate(values):
+                if isinstance(value, (float, int)):
+                    value = '{0:0,.0f}'.format(value)
+                    tableItem = QTableWidgetItem(str(value))
+                    self.result_table_2.setItem(row[0], col_index, tableItem)
+# =====================================================================================================
+        df_3.fillna('', inplace=True)
+        self.result_table_3.setRowCount(df_3.shape[0])
+        self.result_table_3.setColumnCount(df_3.shape[1])
+        self.result_table_3.setHorizontalHeaderLabels(df_3.columns)
+
+        for row in df_3.iterrows():
+            values = row[1]
+            for col_index, value in enumerate(values):
+                if isinstance(value, (float, int)):
+                    value = '{0:0,.0f}'.format(value)
+                    tableItem = QTableWidgetItem(str(value))
+                    self.result_table_3.setItem(row[0], col_index, tableItem)
 # ====================================================================================================
 
 
 # Application Run
 # ====================================================================================================
 suppress_qt_warnings()
+
+excel_file_path = 'sample.xlsx'
+
+
 app = QApplication(sys.argv)
 app.setAttribute(Qt.AA_EnableHighDpiScaling)
 mainwindow = Start()
