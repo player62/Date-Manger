@@ -6,10 +6,13 @@ from os import environ
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
 import openpyxl
+import datetime
+#from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
@@ -382,7 +385,7 @@ class Main(QDialog):
         print(total_schedule_to_excel_lc_2)
         print(total_schedule_to_excel_lc_3)
 
-        xlxs_dir = 'sample.xlsx'
+        xlxs_dir = 'schedule.xlsx'
         with pd.ExcelWriter(xlxs_dir) as writer:
             total_schedule_to_excel_lc_1.to_excel(
                 writer, sheet_name=locationList[0])
@@ -408,6 +411,7 @@ class Result(QDialog):
         loadUi("show_result_1.ui", self)
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
+        self.save_image_button.clicked.connect(self.shoot)
 
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
@@ -446,20 +450,26 @@ class Result(QDialog):
         self.result_table_3.setHorizontalHeaderLabels(df_3.columns)
 
         for row in df_3.iterrows():
-            values = row[1]
+            values = row[1] 
             for col_index, value in enumerate(values):
                 if isinstance(value, (float, int)):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
 # ====================================================================================================
+    def shoot(self):
+      date = datetime.datetime.now()
+      filename = date.strftime('%Y-%m-%d_스케줄jpg') # 파일이름 만들기용도
+      p = QScreen.grabWindow(app.primaryScreen(),mainwindow.winId())#(메인화면, 현재위젯)
+      p.save(filename, 'jpg')
+      
 
 
 # Application Run
 # ====================================================================================================
 suppress_qt_warnings()
 
-excel_file_path = 'sample.xlsx'
+excel_file_path = 'schedule.xlsx'
 
 
 app = QApplication(sys.argv)
