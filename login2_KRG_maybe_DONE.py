@@ -459,7 +459,7 @@ class Result(QDialog):
 # ====================================================================================================
     def shoot(self):
       date = datetime.datetime.now()
-      filename = date.strftime('%Y-%m-%d_스케줄jpg') # 파일이름 만들기용도
+      filename = date.strftime('%Y-%m-%d_스케줄.jpg') # 파일이름 만들기용도
       p = QScreen.grabWindow(app.primaryScreen(),mainwindow.winId())#(메인화면, 현재위젯)
       p.save(filename, 'jpg')
       
@@ -478,7 +478,7 @@ mainwindow = Start()
 
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
-widget.setMaximumWidth(900)
+widget.setMaximumWidth(1300)
 widget.setMaximumHeight(900)
 widget.show()
 app.exec_()
