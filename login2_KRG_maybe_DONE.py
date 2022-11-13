@@ -11,8 +11,8 @@ from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
 import openpyxl
-import datetime
-#from PyQt5.QScreen
+import dataframe_image as dfi
+# from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
@@ -42,6 +42,14 @@ calendar_lc_1 = {}
 calendar_lc_2 = {}
 calendar_lc_3 = {}
 
+total_schedule_to_excel_lc_1 = {}
+total_schedule_to_excel_lc_2 = {}
+total_schedule_to_excel_lc_3 = {}
+
+df_1 = {}
+df_2 = {}
+df_3 = {}
+
 for day in range(7):
     for time in range(27):
         for place in range(3):
@@ -70,6 +78,7 @@ total_schedule_lc_3 = []
 
 
 columns_day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+
 index_time = ['9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00',
               '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00']
 
@@ -374,6 +383,10 @@ class Main(QDialog):
         global calendar_lc_2
         global calendar_lc_3
 
+        global total_schedule_to_excel_lc_1
+        global total_schedule_to_excel_lc_2
+        global total_schedule_to_excel_lc_3
+
         total_schedule_to_excel_lc_1 = pd.DataFrame(
             calendar_lc_1, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_2 = pd.DataFrame(
@@ -414,14 +427,20 @@ class Result(QDialog):
         self.save_image_button.clicked.connect(self.shoot)
 
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
+        global df_1
+        global df_2
+        global df_3
+
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
         df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
 
         df_1.fillna('', inplace=True)
+        df_1.drop(['Unnamed: 0'], axis=1, inplace=True)
         self.result_table_1.setRowCount(df_1.shape[0])
         self.result_table_1.setColumnCount(df_1.shape[1])
-        self.result_table_1.setHorizontalHeaderLabels(df_1.columns)
+        self.result_table_1.setHorizontalHeaderLabels(columns_day)
+        self.result_table_1.setVerticalHeaderLabels(index_time)
 
         for row in df_1.iterrows():
             values = row[1]
@@ -432,9 +451,11 @@ class Result(QDialog):
                     self.result_table_1.setItem(row[0], col_index, tableItem)
 # =====================================================================================================
         df_2.fillna('', inplace=True)
+        df_2.drop(['Unnamed: 0'], axis=1, inplace=True)
         self.result_table_2.setRowCount(df_2.shape[0])
         self.result_table_2.setColumnCount(df_2.shape[1])
-        self.result_table_2.setHorizontalHeaderLabels(df_2.columns)
+        self.result_table_2.setHorizontalHeaderLabels(columns_day)
+        self.result_table_2.setVerticalHeaderLabels(index_time)
 
         for row in df_2.iterrows():
             values = row[1]
@@ -445,24 +466,29 @@ class Result(QDialog):
                     self.result_table_2.setItem(row[0], col_index, tableItem)
 # =====================================================================================================
         df_3.fillna('', inplace=True)
+        df_3.drop(['Unnamed: 0'], axis=1, inplace=True)
         self.result_table_3.setRowCount(df_3.shape[0])
         self.result_table_3.setColumnCount(df_3.shape[1])
-        self.result_table_3.setHorizontalHeaderLabels(df_3.columns)
+        self.result_table_3.setHorizontalHeaderLabels(columns_day)
+        self.result_table_3.setVerticalHeaderLabels(index_time)
 
         for row in df_3.iterrows():
-            values = row[1] 
+            values = row[1]
             for col_index, value in enumerate(values):
                 if isinstance(value, (float, int)):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
 # ====================================================================================================
+
     def shoot(self):
-      date = datetime.datetime.now()
-      filename = date.strftime('%Y-%m-%d_스케줄.jpg') # 파일이름 만들기용도
-      p = QScreen.grabWindow(app.primaryScreen(),mainwindow.winId())#(메인화면, 현재위젯)
-      p.save(filename, 'jpg')
-      
+
+        dfi.export(total_schedule_to_excel_lc_1,
+                   './첫번째 장소.png', max_cols=-1, max_rows=-1)
+        dfi.export(total_schedule_to_excel_lc_2,
+                   './두번째 장소.png', max_cols=-1, max_rows=-1)
+        dfi.export(total_schedule_to_excel_lc_3,
+                   './세번째 장소.png', max_cols=-1, max_rows=-1)
 
 
 # Application Run
@@ -470,12 +496,9 @@ class Result(QDialog):
 suppress_qt_warnings()
 
 excel_file_path = 'schedule.xlsx'
-
-
 app = QApplication(sys.argv)
 app.setAttribute(Qt.AA_EnableHighDpiScaling)
 mainwindow = Start()
-
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainwindow)
 widget.setMaximumWidth(1300)
