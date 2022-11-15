@@ -11,6 +11,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
 import openpyxl
+import numpy as np
 import dataframe_image as dfi
 # from PyQt5.QScreen
 # ====================================================================================================
@@ -377,8 +378,25 @@ class Main(QDialog):
         self.result_print()
 
         # 여기에 엑셀 불러오기 구현
+    def draw_color_cell(self, x, color): #x = 셀 번호
+        #반복문 돌려서 member 수 대비 해당 일자 선택 인원에 대한 색을 지정 
+
+
+
+
+
+
+
+
+
+
+
+
+        color = f'background-color:{color}'
+        return color
 
     def result_print(self):
+        
         global calendar_lc_1
         global calendar_lc_2
         global calendar_lc_3
@@ -393,6 +411,8 @@ class Main(QDialog):
             calendar_lc_2, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
+
+        total_schedule_to_excel_lc_1.style.applymap(self.draw_color_cell, color = '#ff9090', subset = pd.IndexSlice['13:00',['MON']]).to_excel("styled.xlsx",engine="openpyxl", index = False)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
