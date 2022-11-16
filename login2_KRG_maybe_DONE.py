@@ -377,11 +377,22 @@ class Main(QDialog):
 
         self.result_print()
 
-        # 여기에 엑셀 불러오기 구현
-    def draw_color_cell(self, x, color):  # x = 셀 번호
-        # 반복문 돌려서 member 수 대비 해당 일자 선택 인원에 대한 색을 지정
-            color = f'background-color:{color}'
-            return color
+    def color_np_custom(self, value):
+        if value == 0:
+            color = "#ffffff"
+        elif value == 1:
+            color = "#DDEED5"
+        elif value == 2:
+            color = "#BBDDAA"
+        elif value == 3:
+            color = "#99CC80"
+        elif value == 4:
+            color = "#77BB55"
+        elif value == 5:
+            color = "#55AA2B"
+        elif value == 6:
+            color = "#339900"
+        return f'background-color:{color}'
 
     def result_print(self):
 
@@ -399,23 +410,18 @@ class Main(QDialog):
             calendar_lc_2, index=index_time,  columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
-        for x in range(7):
-            for y in range(27):
-                if total_schedule_to_excel_lc_1.iloc[y][x]==1:
-                    #print("1")
-                    total_schedule_to_excel_lc_1.style.applymap(self.draw_color_cell, color='#ff9090',subset=pd.IndexSlice[y,[x]]).to_excel("styled.xlsx", engine="openpyxl", index=True)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
         print(total_schedule_to_excel_lc_3)
-
         xlxs_dir = 'schedule.xlsx'
+
         with pd.ExcelWriter(xlxs_dir) as writer:
-            total_schedule_to_excel_lc_1.to_excel(
+            total_schedule_to_excel_lc_1.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[0])
-            total_schedule_to_excel_lc_2.to_excel(
+            total_schedule_to_excel_lc_2.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[1])
-            total_schedule_to_excel_lc_3.to_excel(
+            total_schedule_to_excel_lc_3.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[2])
 
     def returnfunction(self):
@@ -437,11 +443,28 @@ class Result(QDialog):
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
 
+    def color_np_custom(self, value):
+        if value == 0:
+            color = "#ffffff"
+        elif value == 1:
+            color = "#DDEED5"
+        elif value == 2:
+            color = "#BBDDAA"
+        elif value == 3:
+            color = "#99CC80"
+        elif value == 4:
+            color = "#77BB55"
+        elif value == 5:
+            color = "#55AA2B"
+        elif value == 6:
+            color = "#339900"
+        return f'background-color:{color}'
+
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         global df_1
         global df_2
         global df_3
-
+        
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
         df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
@@ -493,9 +516,11 @@ class Result(QDialog):
 # ====================================================================================================
 
     def shoot(self):
+        total_schedule_to_excel_lc_1_1 = total_schedule_to_excel_lc_1.style.background_gradient(cmap = 'summer')
 
-        dfi.export(total_schedule_to_excel_lc_1,
+        dfi.export(total_schedule_to_excel_lc_1_1,
                    './첫번째 장소.png', max_cols=-1, max_rows=-1)
+
         dfi.export(total_schedule_to_excel_lc_2,
                    './두번째 장소.png', max_cols=-1, max_rows=-1)
         dfi.export(total_schedule_to_excel_lc_3,
