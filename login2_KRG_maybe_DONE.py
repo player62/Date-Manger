@@ -378,25 +378,13 @@ class Main(QDialog):
         self.result_print()
 
         # 여기에 엑셀 불러오기 구현
-    def draw_color_cell(self, x, color): #x = 셀 번호
-        #반복문 돌려서 member 수 대비 해당 일자 선택 인원에 대한 색을 지정 
-
-
-
-
-
-
-
-
-
-
-
-
-        color = f'background-color:{color}'
-        return color
+    def draw_color_cell(self, x, color):  # x = 셀 번호
+        # 반복문 돌려서 member 수 대비 해당 일자 선택 인원에 대한 색을 지정
+            color = f'background-color:{color}'
+            return color
 
     def result_print(self):
-        
+
         global calendar_lc_1
         global calendar_lc_2
         global calendar_lc_3
@@ -408,11 +396,14 @@ class Main(QDialog):
         total_schedule_to_excel_lc_1 = pd.DataFrame(
             calendar_lc_1, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_2 = pd.DataFrame(
-            calendar_lc_2, index=index_time, columns=columns_day)
+            calendar_lc_2, index=index_time,  columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
-
-        total_schedule_to_excel_lc_1.style.applymap(self.draw_color_cell, color = '#ff9090', subset = pd.IndexSlice['13:00',['MON']]).to_excel("styled.xlsx",engine="openpyxl", index = False)
+        for x in range(7):
+            for y in range(27):
+                if total_schedule_to_excel_lc_1.iloc[y][x]==1:
+                    #print("1")
+                    total_schedule_to_excel_lc_1.style.applymap(self.draw_color_cell, color='#ff9090',subset=pd.IndexSlice[y,[x]]).to_excel("styled.xlsx", engine="openpyxl", index=True)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
@@ -441,7 +432,7 @@ class Main(QDialog):
 class Result(QDialog):
     def __init__(self):
         super(Result, self).__init__()
-        loadUi("show_result_1.ui", self)
+        loadUi("showResult.ui", self)
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
