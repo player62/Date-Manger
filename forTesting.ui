@@ -76,11 +76,11 @@ font-size : 40pt; </string>
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>260</width>
+                <width>230</width>
                 <height>20</height>
                </size>
               </property>
@@ -208,7 +208,7 @@ font-size : 8pt;</string>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>20</width>
+                <width>40</width>
                 <height>20</height>
                </size>
               </property>
@@ -252,11 +252,11 @@ font-size : 12pt;</string>
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>160</width>
+                <width>130</width>
                 <height>20</height>
                </size>
               </property>
@@ -288,11 +288,7 @@ font-size : 12pt;</string>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-<<<<<<< HEAD
-                <width>20</width>
-=======
                 <width>40</width>
->>>>>>> 748c661ab517699aa82954dc3c6cad6754978aef
                 <height>20</height>
                </size>
               </property>

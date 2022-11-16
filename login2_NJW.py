@@ -15,7 +15,7 @@ import dataframe_image as dfi
 # from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
+#Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
