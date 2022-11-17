@@ -11,11 +11,12 @@ from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
 import openpyxl
+import numpy as np
 import dataframe_image as dfi
 # from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
+Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -376,9 +377,25 @@ class Main(QDialog):
 
         self.result_print()
 
-        # 여기에 엑셀 불러오기 구현
+    def color_np_custom(self, value):
+        if value == 0:
+            color = "#ffffff"
+        elif value == 1:
+            color = "#DDEED5"
+        elif value == 2:
+            color = "#BBDDAA"
+        elif value == 3:
+            color = "#99CC80"
+        elif value == 4:
+            color = "#77BB55"
+        elif value == 5:
+            color = "#55AA2B"
+        elif value == 6:
+            color = "#339900"
+        return f'background-color:{color}'
 
     def result_print(self):
+
         global calendar_lc_1
         global calendar_lc_2
         global calendar_lc_3
@@ -390,21 +407,21 @@ class Main(QDialog):
         total_schedule_to_excel_lc_1 = pd.DataFrame(
             calendar_lc_1, index=index_time, columns=columns_day)
         total_schedule_to_excel_lc_2 = pd.DataFrame(
-            calendar_lc_2, index=index_time, columns=columns_day)
+            calendar_lc_2, index=index_time,  columns=columns_day)
         total_schedule_to_excel_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
 
         print(total_schedule_to_excel_lc_1)
         print(total_schedule_to_excel_lc_2)
         print(total_schedule_to_excel_lc_3)
-
         xlxs_dir = 'schedule.xlsx'
+
         with pd.ExcelWriter(xlxs_dir) as writer:
-            total_schedule_to_excel_lc_1.to_excel(
+            total_schedule_to_excel_lc_1.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[0])
-            total_schedule_to_excel_lc_2.to_excel(
+            total_schedule_to_excel_lc_2.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[1])
-            total_schedule_to_excel_lc_3.to_excel(
+            total_schedule_to_excel_lc_3.style.applymap(self.color_np_custom).to_excel(
                 writer, sheet_name=locationList[2])
 
     def returnfunction(self):
@@ -421,16 +438,33 @@ class Main(QDialog):
 class Result(QDialog):
     def __init__(self):
         super(Result, self).__init__()
-        loadUi("showResult.ui", self)
+        loadUi("showResultTesting.ui", self)
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
+
+    def color_np_custom(self, value):
+        if value == 0:
+            color = "#ffffff"
+        elif value == 1:
+            color = "#DDEED5"
+        elif value == 2:
+            color = "#BBDDAA"
+        elif value == 3:
+            color = "#99CC80"
+        elif value == 4:
+            color = "#77BB55"
+        elif value == 5:
+            color = "#55AA2B"
+        elif value == 6:
+            color = "#339900"
+        return f'background-color:{color}'
 
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         global df_1
         global df_2
         global df_3
-
+        
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
         df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
@@ -482,9 +516,11 @@ class Result(QDialog):
 # ====================================================================================================
 
     def shoot(self):
+        total_schedule_to_excel_lc_1_1 = total_schedule_to_excel_lc_1.style.background_gradient(cmap = 'summer')
 
-        dfi.export(total_schedule_to_excel_lc_1,
+        dfi.export(total_schedule_to_excel_lc_1_1,
                    './첫번째 장소.png', max_cols=-1, max_rows=-1)
+
         dfi.export(total_schedule_to_excel_lc_2,
                    './두번째 장소.png', max_cols=-1, max_rows=-1)
         dfi.export(total_schedule_to_excel_lc_3,
