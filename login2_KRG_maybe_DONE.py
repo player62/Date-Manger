@@ -13,6 +13,7 @@ import pandas as pd
 import openpyxl
 import numpy as np
 import dataframe_image as dfi
+import win32com.client
 # from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -513,6 +514,10 @@ class Result(QDialog):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
+                    
+        excel = win32com.client.Dispatch("Excel.Application")
+        excel.Visible = True
+        wb = excel.Workbooks.Open(BASE_DIR + r'\schedule.xlsx')
 # ====================================================================================================
 
     def shoot(self):
