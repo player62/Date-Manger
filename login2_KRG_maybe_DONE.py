@@ -511,13 +511,13 @@ class Result(QDialog):
 
     def shoot(self):
 
-        file_name = "\schedule.pdf"
+        file_name = "\schedule"
 
         s = BASE_DIR
-        pages = convert_from_path(s + file_name, poppler_path=s + '\\bin')
+        pages = convert_from_path(s + file_name+ ".PDF", poppler_path=s + '\\bin')
 
         for i, page in enumerate(pages):
-            page.save(BASE_DIR+file_name+str(locationList[i])+".png", "PNG")
+            page.save(BASE_DIR+file_name+"_"+str(locationList[i])+".png", "PNG")
 
 
 # Application Run
