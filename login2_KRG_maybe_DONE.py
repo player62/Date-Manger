@@ -440,7 +440,7 @@ class Main(QDialog):
 class Result(QDialog):
     def __init__(self):
         super(Result, self).__init__()
-        loadUi("showResult.ui", self)
+        loadUi("showResultTesting.ui", self)
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
