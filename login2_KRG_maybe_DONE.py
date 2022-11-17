@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 # Import Modules
 # ====================================================================================================
+
 import sys
 import os
 from os import environ
@@ -10,14 +12,13 @@ from PyQt5.QtGui import *
 from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
-import openpyxl
-import numpy as np
-import dataframe_image as dfi
 import win32com.client
+from pdf2image import convert_from_path
 # from PyQt5.QScreen
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
+
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -444,28 +445,11 @@ class Result(QDialog):
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
 
-    def color_np_custom(self, value):
-        if value == 0:
-            color = "#ffffff"
-        elif value == 1:
-            color = "#DDEED5"
-        elif value == 2:
-            color = "#BBDDAA"
-        elif value == 3:
-            color = "#99CC80"
-        elif value == 4:
-            color = "#77BB55"
-        elif value == 5:
-            color = "#55AA2B"
-        elif value == 6:
-            color = "#339900"
-        return f'background-color:{color}'
-
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         global df_1
         global df_2
         global df_3
-        
+
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
         df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
@@ -514,22 +498,26 @@ class Result(QDialog):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
-                    
+
         excel = win32com.client.Dispatch("Excel.Application")
         excel.Visible = True
         wb = excel.Workbooks.Open(BASE_DIR + r'\schedule.xlsx')
+        wb.ExportAsFixedFormat(Type=0, Filename=BASE_DIR +
+                               r'\schedule.pdf', From=1, To=3)
+
+
 # ====================================================================================================
 
+
     def shoot(self):
-        total_schedule_to_excel_lc_1_1 = total_schedule_to_excel_lc_1.style.background_gradient(cmap = 'summer')
 
-        dfi.export(total_schedule_to_excel_lc_1_1,
-                   './첫번째 장소.png', max_cols=-1, max_rows=-1)
+        file_name = "\schedule.pdf"
 
-        dfi.export(total_schedule_to_excel_lc_2,
-                   './두번째 장소.png', max_cols=-1, max_rows=-1)
-        dfi.export(total_schedule_to_excel_lc_3,
-                   './세번째 장소.png', max_cols=-1, max_rows=-1)
+        s = BASE_DIR
+        pages = convert_from_path(s + file_name, poppler_path=s + '\\bin')
+
+        for i, page in enumerate(pages):
+            page.save(BASE_DIR+file_name+str(locationList[i])+".png", "PNG")
 
 
 # Application Run
