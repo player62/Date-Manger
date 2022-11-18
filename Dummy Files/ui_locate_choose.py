@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\locate_choose.ui'
+# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\Dummy Files\locate_choose.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #

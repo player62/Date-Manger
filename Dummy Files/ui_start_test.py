@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\start_test.ui'
+# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\Dummy Files\start_test.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -39,8 +39,8 @@ class Ui_Dialog(object):
 "\n"
 "border-radius : 10px;")
         self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.widget)
+        self.gridLayout_4.setObjectName("gridLayout_4")
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setObjectName("widget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_2)
@@ -77,7 +77,7 @@ class Ui_Dialog(object):
         self.DM_label.setAlignment(QtCore.Qt.AlignCenter)
         self.DM_label.setObjectName("DM_label")
         self.verticalLayout_2.addWidget(self.DM_label)
-        self.verticalLayout.addWidget(self.widget_2)
+        self.gridLayout_4.addWidget(self.widget_2, 0, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem2 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -102,7 +102,7 @@ class Ui_Dialog(object):
         self.horizontalLayout.addWidget(self.member_num)
         spacerItem4 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.gridLayout_4.addLayout(self.horizontalLayout, 1, 0, 1, 1)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         spacerItem5 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
@@ -120,7 +120,7 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.addWidget(self.start_button)
         spacerItem6 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem6)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.gridLayout_4.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 0, 2, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout_3, 0, 0, 1, 1)

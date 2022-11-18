@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\forTesting2.ui'
+# Form implementation generated from reading ui file 'c:\Users\uri42\Desktop\Date-Manger\Dummy Files\forTesting2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -24,7 +24,7 @@ class Ui_Dialog(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(Dialog)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setContentsMargins(230, 300, 230, 300)
+        self.gridLayout.setContentsMargins(230, 0, 230, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.widget_2 = QtWidgets.QWidget(Dialog)
         self.widget_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -100,8 +100,12 @@ class Ui_Dialog(object):
         self.gridLayout_3.addItem(spacerItem6, 2, 0, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout_3.addItem(spacerItem7, 0, 0, 1, 1)
-        self.gridLayout.addWidget(self.widget_2, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget_2, 1, 0, 1, 1)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 270, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.gridLayout.addItem(spacerItem8, 0, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 270, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.gridLayout_2.addItem(spacerItem9, 1, 0, 1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
