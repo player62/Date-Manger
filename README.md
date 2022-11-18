@@ -1,5 +1,5 @@
 # Date-Manger
-For SKKU ComEdu Learning Fair 2022
+For SKKU Learning Fair 2022
 
 Used Modules
     Pyqt5
