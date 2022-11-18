@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Import Modules
 # ====================================================================================================
 import sys
@@ -10,13 +11,13 @@ from PyQt5.QtGui import *
 from PyQt5.uic import loadUi
 from PyQt5 import uic
 import pandas as pd
-import openpyxl
-import numpy as np
-import dataframe_image as dfi
-# from PyQt5.QScreen
+import win32com.client
+from pdf2image import convert_from_path
+
 # ====================================================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\forTesting.ui')
+Ui_MainWindow, QtBaseClass = uic.loadUiType(BASE_DIR + r'\start.ui')
+
 # ====================================================================================================
 
 # Function for Fixing Font Sizes by Screen Resolution
@@ -86,7 +87,6 @@ index_time = ['9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:3
 ID = ''
 PW = ''
 
-
 # ====================================================================================================
 
 # Start Screen Configuration
@@ -96,7 +96,7 @@ PW = ''
 class Start(QDialog):
     def __init__(self):
         super(Start, self).__init__()
-        loadUi("forTesting.ui", self)
+        loadUi("start.ui", self)
         self.start_button.clicked.connect(self.startfunction)
 
     def startfunction(self):
@@ -117,7 +117,7 @@ class Start(QDialog):
 class Locate_choose(QDialog):
     def __init__(self):
         super(Locate_choose, self).__init__()
-        loadUi("locationTesting.ui", self)
+        loadUi("location.ui", self)
         self.Submit_button.clicked.connect(self.Submitfunction)
 
     def Submitfunction(self):
@@ -148,7 +148,7 @@ class Login(QDialog):
 
     def __init__(self):
         super(Login, self).__init__()
-        loadUi("loginTesting.ui", self)
+        loadUi("login.ui", self)
         self.Login_button.clicked.connect(self.loginfunction)
         self.PW.setEchoMode(QtWidgets.QLineEdit.Password)
 
@@ -201,7 +201,7 @@ class Login(QDialog):
 class Main(QDialog):
     def __init__(self):
         super(Main, self).__init__()
-        loadUi("mainTesting.ui", self)
+        loadUi("main.ui", self)
         # 지역 선택
 
         for lc in locationList:
@@ -222,7 +222,6 @@ class Main(QDialog):
         global member
         global who
 
-        # print(member_schedule_6_1) 여기까지 0
         # x좌표 col
         # 왼쪽 위가 0,0 4사분면으로 생각하고 x축 열 /  y축 행
 
@@ -234,19 +233,19 @@ class Main(QDialog):
             who = 1
             self.make_schedule(keylist)
 
-        elif login[2] == ID:  # 돌아와도 그 유저만 수정
+        elif login[2] == ID: 
             who = 2
             self.make_schedule(keylist)
 
-        elif login[3] == ID:  # 돌아와도 그 유저만 수정
+        elif login[3] == ID:  
             who = 3
             self.make_schedule(keylist)
 
-        elif login[4] == ID:  # 돌아와도 그 유저만 수정
+        elif login[4] == ID:  
             who = 4
             self.make_schedule(keylist)
 
-        elif login[5] == ID:  # 돌아와도 그 유저만 수정
+        elif login[5] == ID:  
             who = 5
             self.make_schedule(keylist)
 
@@ -411,9 +410,6 @@ class Main(QDialog):
         total_schedule_to_excel_lc_3 = pd.DataFrame(
             calendar_lc_3, index=index_time, columns=columns_day)
 
-        print(total_schedule_to_excel_lc_1)
-        print(total_schedule_to_excel_lc_2)
-        print(total_schedule_to_excel_lc_3)
         xlxs_dir = 'schedule.xlsx'
 
         with pd.ExcelWriter(xlxs_dir) as writer:
@@ -430,6 +426,7 @@ class Main(QDialog):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def showresult(self):
+
         start5 = Result()
         widget.addWidget(start5)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -438,33 +435,16 @@ class Main(QDialog):
 class Result(QDialog):
     def __init__(self):
         super(Result, self).__init__()
-        loadUi("showResultTesting.ui", self)
+        loadUi("showResult.ui", self)
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
-
-    def color_np_custom(self, value):
-        if value == 0:
-            color = "#ffffff"
-        elif value == 1:
-            color = "#DDEED5"
-        elif value == 2:
-            color = "#BBDDAA"
-        elif value == 3:
-            color = "#99CC80"
-        elif value == 4:
-            color = "#77BB55"
-        elif value == 5:
-            color = "#55AA2B"
-        elif value == 6:
-            color = "#339900"
-        return f'background-color:{color}'
 
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         global df_1
         global df_2
         global df_3
-        
+
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
         df_3 = pd.read_excel(excel_file_dir, worksheet_name_3)
@@ -513,18 +493,25 @@ class Result(QDialog):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
+
+        excel = win32com.client.Dispatch("Excel.Application")
+        excel.Visible = True
+        wb = excel.Workbooks.Open(BASE_DIR + r'\schedule.xlsx')
+        wb.ExportAsFixedFormat(Type=0, Filename=BASE_DIR +
+                               r'\schedule.pdf', From=1, To=3)
+
+
 # ====================================================================================================
 
+
     def shoot(self):
-        total_schedule_to_excel_lc_1_1 = total_schedule_to_excel_lc_1.style.background_gradient(cmap = 'summer')
 
-        dfi.export(total_schedule_to_excel_lc_1_1,
-                   './첫번째 장소.png', max_cols=-1, max_rows=-1)
-
-        dfi.export(total_schedule_to_excel_lc_2,
-                   './두번째 장소.png', max_cols=-1, max_rows=-1)
-        dfi.export(total_schedule_to_excel_lc_3,
-                   './세번째 장소.png', max_cols=-1, max_rows=-1)
+        file_name = "\schedule.pdf"
+        s = BASE_DIR
+        pages = convert_from_path(s + file_name, poppler_path=s + '\\bin')
+        for i, page in enumerate(pages):
+            page.save(BASE_DIR+file_name+str(locationList[i])+".png", "PNG")
+        
 
 
 # Application Run
