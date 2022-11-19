@@ -439,11 +439,18 @@ class Result(QDialog):
         self.loadData_button.clicked.connect(lambda _, xl_path=excel_file_path, sheet_name_1=locationList[0], sheet_name_2=locationList[
                                              1], sheet_name_3=locationList[2]: self.loadExcelData(xl_path, sheet_name_1, sheet_name_2, sheet_name_3))
         self.save_image_button.clicked.connect(self.shoot)
-
+        
+        for i in range(3):
+            self.tabWidget.setTabText(i, locationList[i])
+        
+        
+    
     def loadExcelData(self, excel_file_dir, worksheet_name_1, worksheet_name_2, worksheet_name_3):
         global df_1
         global df_2
         global df_3
+
+        
 
         df_1 = pd.read_excel(excel_file_dir, worksheet_name_1)
         df_2 = pd.read_excel(excel_file_dir, worksheet_name_2)
@@ -493,24 +500,24 @@ class Result(QDialog):
                     value = '{0:0,.0f}'.format(value)
                     tableItem = QTableWidgetItem(str(value))
                     self.result_table_3.setItem(row[0], col_index, tableItem)
-
-        excel = win32com.client.Dispatch("Excel.Application")
+        excel = win32com.client.dynamic.Dispatch('Excel.Application')
+        #excel = win32com.gencache.EnsureDispatch('Excel.Application')
+        path =  os.getcwd().replace('\'','\\') + '\\'
         excel.Visible = True
-        wb = excel.Workbooks.Open(BASE_DIR + r'\schedule.xlsx')
-        wb.ExportAsFixedFormat(Type=0, Filename=BASE_DIR +
-                               r'\schedule.pdf', From=1, To=3)
+        wb = excel.Workbooks.Open(path + '\schedule.xlsx')
+        wb.ExportAsFixedFormat(Type=0, Filename=path +
+                               'schedule.pdf', From=1, To=3)
 
 
 # ====================================================================================================
 
 
     def shoot(self):
-
-        file_name = "\schedule.pdf"
-        s = BASE_DIR
-        pages = convert_from_path(s + file_name, poppler_path=s + '\\bin')
+        path =  os.getcwd().replace('\'','\\') + '\\'
+        file_name = "\schedule"
+        pages = convert_from_path(path + file_name + ".PDF", poppler_path=path + 'bin')
         for i, page in enumerate(pages):
-            page.save(BASE_DIR+file_name+str(locationList[i])+".png", "PNG")
+            page.save(path +file_name+ "_"+ str(locationList[i])+".png", "PNG")
         
 
 
