@@ -22,8 +22,6 @@ How to use
 ###  
 ![슬라이드5](https://user-images.githubusercontent.com/66107858/202836866-bdc44aba-478d-44a1-893c-1569a167c9ab.PNG)  
 ###  
-![슬라이드6](https://user-images.githubusercontent.com/66107858/202836868-bbb655a1-444d-4746-ac57-00a96d13daec.PNG)  
-###  
 ![슬라이드7](https://user-images.githubusercontent.com/66107858/202836870-3dc06093-e4ca-4a69-a493-941b100c5ee8.PNG)  
 ###  
 ![슬라이드8](https://user-images.githubusercontent.com/66107858/202836872-8e9b7643-f197-4a70-876a-5806052fa70d.PNG)  
