@@ -41,7 +41,7 @@ https://superhky.tistory.com/168
 
   
 ### Additional
-![1](https://user-images.githubusercontent.com/66107858/202836988-33b614d0-2ceb-4489-9811-d6f31787be62.png)  
-![2](https://user-images.githubusercontent.com/66107858/202836989-83b7d231-1bbc-4d46-a2c6-377200ad3b74.png)  
-![3](https://user-images.githubusercontent.com/66107858/202836990-5115c553-523d-4446-9936-9d4cd509f7bc.png)  
-![4](https://user-images.githubusercontent.com/66107858/202836993-e7565fe9-9249-4b7d-b3d6-dbfaaa030274.png)  
+![러닝페어 중간 보고서 4조 깃헙-3](https://user-images.githubusercontent.com/107872531/202860622-a20d2683-7041-4992-93db-d14e72a0a88c.png)
+![러닝페어 중간 보고서 4조 깃헙-4](https://user-images.githubusercontent.com/107872531/202860625-4a71599b-d662-4ecb-a05a-8822f590e7ec.png)
+![러닝페어 중간 보고서 4조 깃헙-5](https://user-images.githubusercontent.com/107872531/202860628-6675f8c3-f9aa-4c76-89ca-20f97eb0361d.png)
+![러닝페어 중간 보고서 4조 깃헙-6](https://user-images.githubusercontent.com/107872531/202860631-56a2e069-9f29-496e-902d-6d57112f736f.png)
