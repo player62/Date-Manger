@@ -13,10 +13,16 @@ pandas
 pywin32  
 pdf2image  
   
-### How to use
+### How to use (.py)
+install all Modules
 install font 'Dosis'  
 run Date_Manager.py  
-refer to the image below  
+refer to the image below
+
+### How to use (.exe)
+install font 'Dosis'  
+run Date_Manager.exe
+refer to the image below 
   
 ### Presentation
 ![슬라이드1](https://user-images.githubusercontent.com/66107858/202836860-16334a4c-4337-4c5b-bfb2-5ad339126182.PNG)  
@@ -25,7 +31,14 @@ refer to the image below
 ![슬라이드4](https://user-images.githubusercontent.com/66107858/202836865-61d5c0c6-8791-4ba0-bde3-b8e7dd9b7ba3.PNG)  
 ![슬라이드5](https://user-images.githubusercontent.com/66107858/202836866-bdc44aba-478d-44a1-893c-1569a167c9ab.PNG)  
 ![슬라이드7](https://user-images.githubusercontent.com/66107858/202836870-3dc06093-e4ca-4a69-a493-941b100c5ee8.PNG)  
-![슬라이드8](https://user-images.githubusercontent.com/66107858/202836872-8e9b7643-f197-4a70-876a-5806052fa70d.PNG)  
+![슬라이드8](https://user-images.githubusercontent.com/66107858/202836872-8e9b7643-f197-4a70-876a-5806052fa70d.PNG)
+
+### Pyqt5 error
+if you have error such as "qt.qpa.plugin could not find the qt platform plugin "windows" in""
+
+set your environment variable according to the following method:
+https://superhky.tistory.com/168
+
   
 ### Additional
 ![1](https://user-images.githubusercontent.com/66107858/202836988-33b614d0-2ceb-4489-9811-d6f31787be62.png)  
