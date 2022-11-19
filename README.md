@@ -25,3 +25,12 @@ How to use
 ![슬라이드7](https://user-images.githubusercontent.com/66107858/202836870-3dc06093-e4ca-4a69-a493-941b100c5ee8.PNG)  
 ###  
 ![슬라이드8](https://user-images.githubusercontent.com/66107858/202836872-8e9b7643-f197-4a70-876a-5806052fa70d.PNG)  
+  
+###  
+![1](https://user-images.githubusercontent.com/66107858/202836988-33b614d0-2ceb-4489-9811-d6f31787be62.png)  
+###  
+![2](https://user-images.githubusercontent.com/66107858/202836989-83b7d231-1bbc-4d46-a2c6-377200ad3b74.png)  
+###  
+![3](https://user-images.githubusercontent.com/66107858/202836990-5115c553-523d-4446-9936-9d4cd509f7bc.png)  
+###  
+![4](https://user-images.githubusercontent.com/66107858/202836993-e7565fe9-9249-4b7d-b3d6-dbfaaa030274.png)  
