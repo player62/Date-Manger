@@ -7,14 +7,16 @@ reagan99 : Program Implementation
 player62 : GUI Design  
 shin714 : Debug / Testing  
   
-### Used Modules  
+### Used Modules
 Pyqt5  
 pandas  
 pywin32  
 pdf2image  
   
-### How to use  
+### How to use
+install font 'Dosis'  
 run Date_Manager.py  
+refer to the image below  
   
 ### Presentation
 ![슬라이드1](https://user-images.githubusercontent.com/66107858/202836860-16334a4c-4337-4c5b-bfb2-5ad339126182.PNG)  
